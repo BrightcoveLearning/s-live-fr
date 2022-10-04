@@ -1,77 +1,49 @@
 <article class="bcls-article">
-  <h1>{{ page.title }}</h1>
-  <summary>{{ page.description }}</summary>
-  <section class="bcls-section">
-    <h2 id="create">Enabling live redundancy</h2>
-    <p>The Live Redundancy feature is enabled by adding two or more streams to a live event in the Live module.</p>
-    <aside class="bcls-aside bcls-aside--information">Notes:
+  <h1>{{page.title}}</h1> <summary>{{page.description}}</summary> <section class="bcls-section">
+    <h2 id="create">Permettre la redondance en direct</h2>
+    <p>La fonctionnalité de redondance en direct est activée en ajoutant deux ou plusieurs flux à un événement en direct dans le module Live.</p> <aside class="bcls-aside bcls-aside--information">Remarques:
       <ul>
-        <li>Every account has a Static Entry Point (SEP) limit of 3, with the exception of us-west-2 which will have a limit of 10. If you need more SEPs, contact Brightcove support.</li>
-        <li>If you are using live redundancy with SSAI, you must insert ads into all jobs in the group at the same time.</li>
-        <li>Live redundancy <strong>cannot</strong> be used with DRM-protected live streams at this time.</li>
-        <li>The primary stream should be published in the region closest to the encoder. The backup stream should be published in the region next closest to the encoder.</li>
-        <li>Backup streams cannot be deleted.</li>
-      </ul>
-    </aside>
-    <aside class="bcls-aside bcls-aside--warning language-editable">Note that for live redundancy to actually work, <strong>you need to publish with the new video ID that is generated when you add a backup stream</strong>.</aside>
+        <li>Chaque compte a une limite de point d'entrée statique (SEP) de 3, à l'exception de us-west-2 qui aura une limite de 10. Si vous avez besoin de plus de SEP, contactez le support Brightcove.</li>
+        <li>Si vous utilisez la redondance en direct avec SSAI, vous devez insérer des annonces dans tous les emplois du groupe en même temps.</li>
+        <li>La redondance en direct<strong> ne peut pas</strong> être utilisée avec des flux en direct protégés par DRM pour le moment.</li>
+        <li>Le flux principal doit être publié dans la région la plus proche du codeur. Le flux de sauvegarde doit être publié dans la région la plus proche du codeur.</li>
+        <li>Les flux de sauvegarde ne peuvent pas être supprimés.</li>
+      </ul> </aside> <aside class="bcls-aside bcls-aside--warning language-editable">Notez que pour que la redondance en direct fonctionne réellement,<strong> vous devez publier avec le nouvel identifiant vidéo généré lorsque vous ajoutez un flux de sauvegarde</strong>.</aside>
     <ol class="bcls-tasklist-restart">
-      <li>Create a live event using the Live module. For complete information on creating a live event, see <a href="creating-and-managing-live-events-using-live-module.html">Creating and Managing Live Events using the Live Module</a>.</li>
-      <li>In the <strong>Stream Options</strong> section, name and select the region of your streams. Click <strong>+ Add a Backup Stream </strong>to add additional backup streams.
-        <aside class="bcls-aside bcls-aside--information">Note: If you don't see the Add a Backup Stream button then live redundancy has not been enabled for your account.</aside>
+      <li>Créez un événement en direct à l'aide du module Live. Pour plus d'informations sur la création d'un événement en direct, consultez<a href="creating-and-managing-live-events-using-live-module.html"> Création et gestion d'événements en direct à l'aide du module Live</a>.</li>
+      <li>Dans la<strong> section</strong> Stream Options, nommez et sélectionnez la région de vos flux. Cliquez<strong> sur+Ajouter un flux de sauvegarde</strong> pour ajouter des flux de sauvegarde supplémentaires. <aside class="bcls-aside bcls-aside--information">Remarque: Si vous ne voyez pas le bouton Ajouter un flux de sauvegarde, cela signifie que la redondance en direct n'a pas été activée pour votre compte.</aside>
       </li>
-      <li>Click <strong>+ Add a Backup Stream</strong> to add a backup (redundant) stream  to the live event. You can add as many backup streams as your account  supports.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt=""  src="/assets/images/s-live-img/live-module/redundancy/stream-options.png" /></figure>
+      <li>Cliquez<strong> sur+Ajouter un flux de sauvegarde</strong> pour ajouter un flux de sauvegarde (redondant) à l'événement en direct. Vous pouvez ajouter autant de flux de sauvegarde que votre compte prend en charge. <figure class="bcls-figure"><img class="bcls-image--no-border" alt=""  src="/assets/images/s-live-img/live-module/redundancy/stream-options.png" /></figure>
       </li>
-      <li>Name your primary and backup streams, and select a <strong>Region</strong> that is closest to where your encoder is located. By default, the <strong>Region</strong> is set to Oregon (US West) which may result in degraded performance if you are streaming from another continent. The <strong>Reference ID </strong> is an optional identifier for internal use and must be unique (max 150 characters).
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/redundant-stream-options.png" /></figure>
+      <li>Nommez vos flux principal et de secours, puis sélectionnez<strong> la région</strong> la plus proche de l'emplacement de votre encodeur. Par défaut, la<strong> région</strong> est définie sur Oregon (USA Ouest), ce qui peut entraîner une dégradation des performances si vous diffusez en continu depuis un autre continent. L'ID de<strong> référence</strong> est un identifiant facultatif pour un usage interne et doit être unique (150 caractères maximum). <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/redundant-stream-options.png" /></figure>
       </li>
-      <li>Complete the live event setup.</li>
-      <li>Alternatively, you can also add a backup stream from the Control Room page by clicking <span class="button-blue">Add a Backup Stream</span>.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/backup-stream-control-room.png" /></figure>
+      <li>Terminez la configuration de l'événement en direct.</li>
+      <li>Vous pouvez également ajouter un flux de sauvegarde à partir de la page Control Room en cliquant sur<span class="button-blue"> Ajouter un flux de sauvegarde</span>. <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/backup-stream-control-room.png" /></figure>
       </li>
-      <li>Enter the <strong>Stream Name</strong> and <strong>Region</strong>.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/add-backup-stream-dialog.png" /></figure>
+      <li>Saisissez le nom du<strong> flux</strong> et<strong> la région</strong>. <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/add-backup-stream-dialog.png" /></figure>
       </li>
-      <li>The Control Room will display  the <strong>Endpoint</strong> and <strong>Stream Name</strong> details for each stream.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/stream-info.png" /></figure>
+      <li>La Control Room affichera les<strong> détails du</strong> point de terminaison<strong> et du nom du</strong> flux pour chaque flux. <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/stream-info.png" /></figure>
       </li>
-      <li>Stream information is displayed in the <strong>Control Room</strong> while the event is streaming.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/stream-info-streaming.png" /></figure>
+      <li>Les informations de diffusion s'affichent dans la<strong> Control Room</strong> pendant la diffusion de l'événement. <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/stream-info-streaming.png" /></figure>
       </li>
-    </ol>
-    <aside class="bcls-aside bcls-aside--information"> Notes:
-      <li>If you created a single stream event and you add a backup stream in the Control Room page, you will need to <strong>republish your player embed code</strong> with the new video ID to benefit from redundancy.</li>
-      <li>If you do not republish the player, you will also <strong>not</strong> see the analytics data from the reporting tab.</li>
-    </aside>
-  </section>
-  <section class="bcls-section">
-    <h2 id="clipping">Clipping</h2>
-    <p>Video clipping will be available for each stream by selecting the desired stream from the drop-down menu above the preview player. For information on creating a clip, see <a target="_blank" href="creating-video-clip-using-live-module.html">Creating a Video Clip Using the Live Module</a>.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt=""  src="/assets/images/s-live-img/live-module/redundancy/select-stream-clip.png" /></figure>
-  </section>
-  <section class="bcls-section">
-    <h2 id="monitoring">Monitoring</h2>
-    <p>Click the <strong>Monitoring</strong> tab below the preview player to view monitoring information. Monitoring is available for each  stream by selecting the desired stream from the dropdown list.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/monitoring.png" /></figure>
-    <p>Monitoring information is available while an event is in progress and for up to 1 hour after the event ends.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="stop-stream">Stopping a stream</h2>
-    <p>To stop a backup stream, on the Control Room page, select the stream from the dropdown list and then click <strong>Stop This Stream</strong>. Stopping a stream will immediately remove that stream from the group.</p>
-    <p>
-      <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/stop-stream.png" /></figure>
+    </ol> <aside class="bcls-aside bcls-aside--information"> Remarques:
+      <li>Si vous avez créé un seul événement de diffusion et que vous ajoutez un flux de sauvegarde sur la page Control Room, vous devrez<strong> republier le code intégré de votre lecteur</strong> avec le nouvel identifiant vidéo pour bénéficier de la redondance.</li>
+      <li>Si vous ne republiez pas le lecteur, vous<strong> ne</strong> verrez pas non plus les données d'analyse de l'onglet Rapports.</li>   </aside></section><section class="bcls-section">
+    <h2 id="clipping">Coupure</h2>
+    <p>L'extrait vidéo sera disponible pour chaque flux en sélectionnant le flux souhaité dans le menu déroulant au-dessus du lecteur d'aperçu. Pour plus d'informations sur la création d'un clip, voir<a target="_blank" href="creating-video-clip-using-live-module.html"> Création d'un clip vidéo à l'aide du module Live</a>.</p>   <figure class="bcls-figure"><img class="bcls-image--no-border" alt=""  src="/assets/images/s-live-img/live-module/redundancy/select-stream-clip.png" /></figure></section><section class="bcls-section">
+    <h2 id="monitoring">Surveillance</h2>
+    <p>Cliquez sur l'<strong>onglet</strong> Surveillance sous le lecteur d'aperçu pour afficher les informations de surveillance. La surveillance est disponible pour chaque flux en sélectionnant le flux souhaité dans la liste déroulante.</p> <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/monitoring.png" /></figure>
+    <p>Les informations de surveillance sont disponibles pendant qu'un événement est en cours et jusqu'à 1 heure après la fin de l'événement.</p>  </section><section class="bcls-section">
+    <h2 id="stop-stream">Arrêter un flux</h2>
+    <p>Pour arrêter un flux de sauvegarde, sur la page Control Room, sélectionnez le flux dans la liste déroulante, puis cliquez sur<strong> Arrêter ce flux</strong>. L'arrêt d'un flux supprimera immédiatement ce flux du groupe.</p>
+    <p> <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/stop-stream.png" /></figure>
     </p>
-    <p>To stop all streams, select the event name from the dropdown list and then click <strong>Stop All Streams</strong>.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Deleting_a_Redundant_Group">Removing idle events</h2>
-    <p>When a redundant event ends, it will appear on the <strong>Completed</strong> events page with a status of <strong>Idle</strong>. Idle events will count against your redundant group account limit. To not have the redundant event count against your account limit, change the event status from <strong>Idle</strong> to <strong>Closed</strong> by closing the event.</p>
+    <p>Pour arrêter tous les flux, sélectionnez le nom de l'événement dans la liste déroulante, puis cliquez sur<strong> Arrêter tous les flux</strong>.</p>  </section><section class="bcls-section">
+    <h2 id="Deleting_a_Redundant_Group">Supprimer les événements inactifs</h2>
+    <p>Lorsqu'un événement redondant prend fin, il apparaît sur la page<strong> Événements</strong> terminés avec le statut<strong> Inactif</strong>. Les événements inactifs seront pris en compte dans votre limite de comptes de groupe redondants Pour que les événements redondants ne soient pas comptabilisés dans la limite de votre compte, modifiez le statut de l'événement de<strong> Inactif</strong> à<strong> Fermé</strong> en clôturant l'événement.</p>
     <ol class="bcls-tasklist-restart">
-      <li>On the <strong>Manage Events</strong> page, click the <strong>Completed</strong> tab. </li>
-      <li>The redundant event should be in an <strong>Idle</strong> state.</li>
-      <li>Click on the event group and then click <strong>Close</strong> to move the redundant event to a <strong>Completed</strong> state.
-        <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/completed-events.png" /></figure>
+      <li>Sur la<strong> page</strong> Gérer les événements, cliquez sur l'<strong>onglet</strong> Terminé. </li>
+      <li>L'événement redondant doit être dans un<strong> état</strong> Idle.</li>
+      <li>Cliquez sur le groupe d'événements, puis sur<strong> Fermer</strong> pour faire passer l'événement redondant à<strong> l'état</strong> Terminé. <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/live-module/redundancy/completed-events.png" /></figure>
       </li>
-    </ol>
-  </section>
-</article>
+    </ol>   </section></article>

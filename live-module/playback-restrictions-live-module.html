@@ -1,139 +1,105 @@
-<h1>{{ page.title }}</h1>
-<article class="bcls-article">
-  <summary>{{ page.description }}</summary>
-  <section class="bcls-section">
-    <h2 id="Introduction">Introduction</h2>
-    <p> By default, live streams talk to the Brightcove Live API to stream your event. A new system to manage Playback Rights and Restrictions sits in front of the Live API and provides playback authorization using DRM licenses DRM licenses or AES-128 (HLSe) encryption. </p>
-    <p>Live streams use <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html#Runtime_restrictions">runtime restrictions</a>, so you will need a JSON Web Token (JWT) with specific permissions (claims) for your stream request.</p>
-    <p>The token is used when requesting the video license, once the video has been loaded to the player and the source has been selected.</p>
-    <p>To use Playback Restrictions with live streams, your account must be enabled for either studio-grade DRM or AES-128 (HLSe) encryption.</p>
-    <aside class="bcls-aside bcls-aside--information">With HLSe content, when the player changes rendition, due to improved connectivity or after the first segment is loaded, a new license request is made.</aside>
-    <p>If you are not familiar with this feature, see the <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html">Overview: Brightcove Playback Restrictions</a> document.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Requirements">Requirements</h2>
-    <p>This feature is a paid add-on for your account. Contact your account manager to enable the following:</p>
+<h1>{{page.title}}</h1> <article class="bcls-article"> <summary>{{page.description}}</summary> <section class="bcls-section">
+    <h2 id="Introduction">Présentation</h2>
+    <p> Par défaut, les diffusions en direct communiquent avec l'API Brightcove Live pour diffuser votre événement en continu. Un nouveau système de gestion des droits et restrictions de lecteur se trouve devant l'API Live et fournit une autorisation de lecteur à l'aide de licences DRM, de licences DRM ou de cryptage AES-128 (HLse). </p>
+    <p>Les flux en direct utilisent des restrictions<a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html#Runtime_restrictions"> d'exécution</a>, vous aurez donc besoin d'un jeton Web JSON (JWT) avec des autorisations spécifiques (revendications) pour votre demande de flux.</p>
+    <p>Le jeton est utilisé lors de la demande de licence vidéo, une fois que la vidéo a été chargée sur le lecteur et que la source a été sélectionnée.</p>
+    <p>Pour utiliser les restrictions de lecteur avec les flux en direct, votre compte doit être activé pour le chiffrement DRM de qualité studio ou AES-128 (HLse).</p> <aside class="bcls-aside bcls-aside--information">Avec le contenu HLse, lorsque le lecteur change de rendu, en raison d'une connectivité améliorée ou après le chargement du premier segment, une nouvelle demande de licence est effectuée.</aside>
+    <p>Si cette fonctionnalité ne vous est pas familière, consultez la<a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html"> vue d'ensemble: </a>Document sur les restrictions de lecteur Brightcove.</p>  </section><section class="bcls-section">
+    <h2 id="Requirements">Exigences</h2>
+    <p>Cette fonctionnalité est un complément payant pour votre compte. Contactez votre responsable de compte pour activer les éléments suivants:</p>
     <ul>
-      <li>Enable your account for either DRM or AES-128 (HLSe) encryption.</li>
+      <li>Activez votre compte pour le chiffrement DRM ou AES-128 (HLse).</li>
       <li>
-        <p>Enable your account for Playback Rights (EPA).</p>
-        <aside class="bcls-aside bcls-aside--warning">Currently, enabling your account for Playback Rights (EPA) will impact your ability to do live clipping.</aside>
+        <p>Activez les droits de lecteur (EPA) sur votre compte.</p> <aside class="bcls-aside bcls-aside--warning">Actuellement, l'activation des droits de lecteur (EPA) sur votre compte aura un impact sur votre capacité à réaliser des clips en direct.</aside>
       </li>
-    </ul>
-  </section>
-  <section class="bcls-section">
+    </ul>  </section><section class="bcls-section">
     <h2 id="Workflow">Workflow</h2>
-    <p>To use Playback Restrictions with a live event, follow these steps:</p>
+    <p>Pour utiliser les restrictions de lecteur avec un événement en direct, procédez comme suit:</p>
     <ol class="bcls-tasklist">
-      <li><a href="#Define_Playback_Rights">Define Playback Rights</a></li>
-      <li><a href="#Create_a_live_event_with_Playback_Restrictions">Create a live event with Playback Restrictions</a></li>
-      <li><a href="#Publish_the_live_event">Publish the live event</a></li>
+      <li><a href="#Define_Playback_Rights">Définir les droits de lecteur</a></li>
+      <li><a href="#Create_a_live_event_with_Playback_Restrictions">Créer un événement en direct avec des restrictions de lecteur</a></li>
+      <li><a href="#Publish_the_live_event">Publiez l'événement en direct</a></li>
     </ol>
-    <p>Alternatively, you can use the Brightcove APis to create the live event and associate Playback Restrictions. For details, see the <a href="https://apis.support.brightcove.com/live-api/guides/live-playback-restrictions.html">Playback Restrictions with Live Streams</a> document.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Define_Playback_Rights">Define Playback Rights</h2>
-    <p>Brightcove's Playback Rights Management Service allows you to manage video playback based on the following:</p>
+    <p>Vous pouvez également utiliser les API Brightcove pour créer l'événement en direct et associer des restrictions de lecteur. Pour plus de détails, consultez le<a href="https://apis.support.brightcove.com/live-api/guides/live-playback-restrictions.html"> document Restrictions de</a> lecteur avec les flux en direct.</p>  </section><section class="bcls-section">
+    <h2 id="Define_Playback_Rights">Définir les droits de lecteur</h2>
+    <p>Le service de gestion des droits de lecteur de Brightcove vous permet de gérer la lecteur vidéo en fonction des éléments suivants:</p>
     <ul>
-      <li>Geography</li>
-      <li>Domain</li>
+      <li>Géographie</li>
+      <li>Domaine</li>
       <li>Proxy</li>
-      <li>Schedule dates</li>
+      <li>Dates du calendrier</li>
     </ul>
-    <p>Here are the steps to define Playback Rights in Studio:</p>
+    <p>Voici les étapes à suivre pour définir les droits de lecteur dans Studio:</p>
     <ol class="bcls-tasklist-restart">
-      <li>Review the validation diagrams for Playback Rights in the <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/implementing-playback-rights.html">Implementing Playback Rights</a> document.</li>
-      <li>In  Studio, in the primary navigation click <strong>Admin &gt; Playback Rights</strong>. </li>
-      <li>To create a new right, click <span class="button-blue">New Playback Rights</span>.
-        <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Manage playback rights" src="/assets/images/s-live-img/live-module/playback-restrictions/manage-playback-rights.png" /> </figure>
+      <li>Consultez les diagrammes de validation des droits de lecteur dans le<a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/implementing-playback-rights.html"> document</a> Implémentation des droits de lecteur.</li>
+      <li>Dans Studio, dans la navigation principale, cliquez sur<strong> Admin &gt; Droits de lecteur</strong>. </li>
+      <li>Pour créer un nouveau droit, cliquez sur<span class="button-blue"> Nouveaux droits de lecteur</span>. <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Gérer les droits de lecteur" src="/assets/images/s-live-img/live-module/playback-restrictions/manage-playback-rights.png" /> </figure>
       </li>
-      <li>Add a <strong>Playback Rights Name</strong> and click <span class="button-blue">Save</span>.</li>
-      <li>In the left navigation, select each category and edit changes.
-        <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Playback rights detail" src="/assets/images/s-live-img/live-module/playback-restrictions/playback-rights-detail.png" /> </figure>
+      <li>Ajoutez un nom<strong> de droits de lecteur</strong> et cliquez sur<span class="button-blue"> Enregistrer</span>.</li>
+      <li>Dans le menu de navigation de gauche, sélectionnez chaque catégorie et modifiez les modifications. <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Détail des droits de lecteur" src="/assets/images/s-live-img/live-module/playback-restrictions/playback-rights-detail.png" /> </figure>
       </li>
-      <li>Click <span class="button-blue">Save</span>.</li>
-      <li>To edit a Playback Right, click on the <strong>Name</strong> link.</li>
-      {% if site.product_short == "Video Cloud" or site.product_short == "Beacon" or site.product_short == "CorpTV" %}
-      <li>For details, see the <a href="/admin/managing-playback-rights.html">Managing Playback Rights</a> document.</li>
-      {% endif %}            
-      {% if site.product_short == "Live" %}
-      <li>For details, see the <a href="https://studio.support.brightcove.com/admin/managing-playback-rights.html">Managing Playback Rights</a> document.</li>
+      <li>Cliquez sur<span class="button-blue"> Enregistrer</span>.</li>
+      <li>Pour modifier un droit de lecteur, cliquez sur le<strong> lien</strong> Nom.</li>
+      {% if site.product_short == Video Cloud-fr/ ou site.product_short == Beacon-fr/ ou site.product_short == CorpTV-fr/ %}
+      <li>Pour plus de détails, consultez le<a href="/admin/managing-playback-rights.html"> document</a> Gestion des droits de lecteur.</li>
+      {% endif %} {% if site.product_short == Live-fr/ %}
+      <li>Pour plus de détails, consultez le<a href="https://studio.support.brightcove.com/admin/managing-playback-rights.html"> document</a> Gestion des droits de lecteur.</li>
       {% endif %}
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Create_a_live_event_with_Playback_Restrictions">Create a live event with Playback Restrictions</h2>
-    <p>First, use the <strong>Live</strong> module to create a live event with Playback Restrictions. Then, associate a defined Playback Right with the live event using the <strong>Media</strong> module and the Video ID generated during the live job creation.</p>
-    <p>To create a Live Event, follow these steps:</p>
+    </ol>  </section><section class="bcls-section">
+    <h2 id="Create_a_live_event_with_Playback_Restrictions">Créer un événement en direct avec des restrictions de lecteur</h2>
+    <p>Tout d'abord, utilisez le<strong> module</strong> Live pour créer un événement en direct avec des restrictions de lecteur. Ensuite, associez un droit de lecteur défini à l'événement en direct à l'aide du<strong> module</strong> Media et de l'ID vidéo généré lors de la création de la tâche en direct.</p>
+    <p>Pour créer un événement en direct, procédez comme suit:</p>
     <ol class="bcls-tasklist-restart">
-      <li>Open the <strong>Live</strong> module.</li>
-      <li>From the <strong>Manage Events</strong> page click <span class="button-blue">Create Event</span>.</li>
-      <li>Enter the event data as needed. For details, see the <a href="creating-and-managing-live-events-using-live-module.html">Creating and Managing Live Events using the Live Module</a> document.</li>
-      <li>Expand the <strong>Advanced Options</strong> section.</li>
-      <li>For <strong>Content Encryption</strong>, select either <strong>AES-128</strong> or <strong>Digital Rights Management (DRM)</strong>.
+      <li>Ouvrez le<strong> module</strong> Live.</li>
+      <li>Sur la<strong> page</strong> Gérer les événements, cliquez sur<span class="button-blue"> Créer un événement</span>.</li>
+      <li>Saisissez les données de l'événement selon vos besoins. Pour plus de détails, consultez le<a href="creating-and-managing-live-events-using-live-module.html"> document</a> Création et gestion d'événements en direct à l'aide du module Live.</li>
+      <li>Développez la<strong> section Options</strong> avancées.</li>
+      <li>Pour<strong> Content Encryption</strong>, sélectionnez<strong> AES-128</strong> ou<strong> Digital Rights Management (DRM)</strong>.
         <ul>
-          <li><strong>AES-128</strong> - Secures the live HLS outputs using AES-128 encryption. If this option is selected, you must enter your <strong>Encryption Key</strong>. The key must be 32 hexadecimal characters. For best results, use a <a href="https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx">key generator</a>, choosing the <code translate="No">128-bit</code> and <code translate="No">Hex</code> options.  The encryption key value is only entered in the Live module, it is not used as part of your encoder settings.
-            <aside class="bcls-aside bcls-aside--information">Note: When using this option, you should not send an encrypted stream to Brightcove. Configure your encoder as you normally would. Selecting this option will encrypt the HLS output streams sent from Brightcove Live.</aside>
-            <aside class="bcls-aside bcls-aside--information">Note: Clips can't be created from encrypted live streams.</aside>
+          <li><strong>AES-128</strong> - Sécurise les sorties HLS en direct à l'aide du cryptage AES-128. Si cette option est sélectionnée, vous devez entrer votre clé de<strong> chiffrement</strong>. La clé doit contenir 32 caractères hexadécimaux. Pour de meilleurs résultats, utilisez un générateur de<a href="https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx"> clés</a>, en choisissant les<code translate="No"> options</code> 128 bits<code translate="No"> et</code> Hex. La valeur de la clé de chiffrement n'est entrée que dans le module Live, elle n'est pas utilisée dans le cadre des paramètres de votre encodeur. <aside class="bcls-aside bcls-aside--information">Remarque: Lorsque vous utilisez cette option, vous ne devez pas envoyer de flux crypté à Brightcove. Configurez votre encodeur comme vous le feriez normalement. La sélection de cette option permet de chiffrer les flux de sortie HLS envoyés depuis Brightcove Live.</aside> <aside class="bcls-aside bcls-aside--information">Remarque: Les clips ne peuvent pas être créés à partir de flux en direct cryptés.</aside>
           </li>
-          <li><strong>Digital Rights Management (DRM)</strong> - Secure Premium content stream with Digital Rights Management technologies.
-            {% if site.product_short == "Video Cloud" or site.product_short == "Beacon" or site.product_short == "CorpTV" %}}        
-            For details, see the <a href="/live/general/live-drm.html">Live DRM</a> document.
-            {% endif %}
-            {% if site.product_short == "Live" %}
-            For details, see the <a href="/general/live-drm.html">Live DRM</a> document.
-            {% endif %}
+          <li><strong>Gestion des droits numériques (DRM)</strong> - Flux de contenu Premium sécurisé avec les technologies de gestion des droits numériques. {% if site.product_short == Video Cloud-fr/ ou site.product_short == Beacon-fr/ ou site.product_short == CorpTV-fr/ %}} Pour plus de détails, consultez le <a href="/live/general/live-drm.html"></a>Document DRM en direct. {% endif %} {% if site.product_short == Live-fr/ %} Pour plus de détails, consultez le<a href="/general/live-drm.html"> document</a> Live DRM. {% endif %}
             <ul>
-              <li>HLS + <a href="https://developer.apple.com/streaming/fps/">FairPlay</a></li>
-              <li>HLS (fMP4) + Widevine Modular</li>
-            </ul>
-            <aside class="bcls-aside bcls-aside--information"> Your Live account must be enabled first by Brightcove Support in order to use DRM. To publish a DRM-enabled event, it is necessary to create and use a DRM enabled player v6.37.1 or greater.</aside>
+              <li>HLS +<a href="https://developer.apple.com/streaming/fps/"> FairPlay</a></li>
+              <li>HLS (FMP4) +Widevine Modular</li>
+            </ul> <aside class="bcls-aside bcls-aside--information"> Votre compte Live doit d'abord être activé par le support Brightcove pour pouvoir utiliser la gestion des droits numériques. Pour publier un événement compatible DRM, il est nécessaire de créer et d'utiliser un lecteur compatible DRM v6.37.1 ou version ultérieure.</aside>
           </li>
         </ul>
       </li>
-      <li>To use Playback Restrictions, select <strong>Enable Playback Restrictions</strong>. For details, see the <a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html">Overview: Brightcove Playback Restrictions</a> document.
-        <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Enable Playback Restrictions" src="/assets/images/s-live-img/live-module/playback-restrictions/enable-restrictions.png" /> </figure>
+      <li>Pour utiliser les restrictions de lecteur, sélectionnez<strong> Activer les restrictions de lecteur</strong>. Pour plus de détails, consultez la<a href="https://apis.support.brightcove.com/playback-restrictions/getting-started/overview-playback-restrictions.html"> vue d'ensemble: </a>Document sur les restrictions de lecteur Brightcove. <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Activer les restrictions de lecteur" src="/assets/images/s-live-img/live-module/playback-restrictions/enable-restrictions.png" /> </figure>
       </li>
-      <li>Enter any additional event details.</li>
-      <li>Click <strong>Create Event</strong>.</li>
-      <li>In the Live <strong>Control Room</strong>, click the <strong>Video ID</strong> associated with the event.
-        <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Event Video ID" src="/assets/images/s-live-img/live-module/playback-restrictions/event-video-id.png" /> </figure>
+      <li>Saisissez tous les détails supplémentaires sur l'événement.</li>
+      <li>Cliquez sur<strong> Créer un événement</strong>.</li>
+      <li>Dans la salle<strong> de contrôle en direct</strong>, cliquez sur l'ID<strong> vidéo</strong> associé à l'événement. <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="ID vidéo de l'événement" src="/assets/images/s-live-img/live-module/playback-restrictions/event-video-id.png" /> </figure>
       </li>
-      <li>You will be redirected to the <strong>Media</strong> module for this video ID.</li>
-      <li>In the <strong>Playback Restrictions</strong> section, select the Playback Restriction that you defined in the <a href="#Define_playback_rights">Define Playback Rights</a> section.
-        <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Assign Playback Restriction" src="/assets/images/s-live-img/live-module/playback-restrictions/assign-playback-right.png" /> </figure>
+      <li>Vous serez redirigé vers le<strong> module</strong> Médias pour cet identifiant vidéo.</li>
+      <li>Dans la<strong> section Restrictions de</strong> lecteur, sélectionnez la restriction de lecteur que vous avez définie dans la<a href="#Define_playback_rights"> section</a> Définir les droits de lecteur. <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Attribuer une restriction" src="/assets/images/s-live-img/live-module/playback-restrictions/assign-playback-right.png" /> </figure>
       </li>
-      <li>In the Admin module, you can edit the Playback Right after it has been assigned to an event.</li>
-      {% if site.product_short == "Video Cloud" or site.product_short == "Beacon" or site.product_short == "CorpTV" %}
-      <li>Start streaming your live event. For details, see the <a href="/live/get-started/index.html">Getting Started</a> index page.</li>
+      <li>Dans le module Admin, vous pouvez modifier le Playback Right après qu'il a été affecté à un événement.</li>
+      {% if site.product_short == Video Cloud-fr/ ou site.product_short == Beacon-fr/ ou site.product_short == CorpTV-fr/ %}
+      <li>Commencez à diffuser votre événement en direct. Pour plus de détails, consultez la page d'<a href="/live/get-started/index.html">index</a> Mise en route.</li>
+      {% endif %} {% if site.product_short == Live-fr/ %}
+      <li>Commencez à diffuser votre événement en direct. Pour plus de détails, consultez la page d'<a href="/get-started/index.html">index</a> Mise en route.</li>
       {% endif %}
-      {% if site.product_short == "Live" %}
-      <li>Start streaming your live event. For details, see the <a href="/get-started/index.html">Getting Started</a> index page.</li>
-      {% endif %}
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Publish_the_live_event">Publish the live event</h2>
-    <p>Live streams with Playback Restrictions require a JSON Web Token (JWT) with specific permissions (claims) for your stream request.</p>
-    <p>To publish a live stream with Playback Restrictions, follow these steps:</p>
+    </ol>  </section><section class="bcls-section">
+    <h2 id="Publish_the_live_event">Publiez l'événement en direct</h2>
+    <p>Les flux en direct avec restrictions de lecteur nécessitent un jeton Web JSON (JWT) avec des autorisations spécifiques (revendications) pour votre demande de diffusion.</p>
+    <p>Pour publier un flux en direct avec des restrictions de lecteur, procédez comme suit:</p>
     <ol class="bcls-tasklist-restart">
       <li>
-        <p>Create a JSON Web Token (JWT) and register the public key with Brightcove.</p>
-        <p>For details, see the <a href="https://general.support.brightcove.com/developer/create-json-web-token.html">Creating a JSON Web Token (JWT)</a> document.</p>
+        <p>Créez un jeton Web JSON (JWT) et enregistrez la clé publique auprès de Brightcove.</p>
+        <p>Pour plus de détails, consultez le<a href="https://general.support.brightcove.com/developer/create-json-web-token.html"> document</a> Création d'un jeton Web JSON (JWT).</p>
       </li>
-      <li>In  Studio, return to the <strong>Live</strong> module.</li>
-      <li>In the left navigation, select <strong>Publish and Embed</strong>.</li>
-      <li>In the <strong>Live Player Options</strong> section, select your player configured in the previous step. </li>
+      <li>Dans Studio, revenez au<strong> module</strong> Live.</li>
+      <li>Dans le volet de navigation de gauche, sélectionnez<strong> Publier et intégrer</strong>.</li>
+      <li>Dans la<strong> section Options du lecteur</strong> en direct, sélectionnez votre lecteur configuré à l'étape précédente. </li>
       <li>
-        <p>Copy the <strong>Advanced Embed Code</strong> and paste it into your HTML page.</p>
-        <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Player embed code" src="/assets/images/s-live-img/live-module/playback-restrictions/embed-code.png" /> </figure>
+        <p>Copiez le code intégré<strong> avancé</strong> et collez-le dans votre page HTML.</p> <figure class="bcls-figure"> <img class="bcls-image--no-border" alt="Code d'intégration du lecteur" src="/assets/images/s-live-img/live-module/playback-restrictions/embed-code.png" /> </figure>
       </li>
-      <li>Create a custom script with the Advanced embed code.
-        <p>The JWT token is passed with the playback request. If the token is invalid or expired, access to the content will be restricted. The player must be configured to use the token.</p>
-        <p> To configure the Brightcove web player, see the <a href="https://player.support.brightcove.com/playback/playback-restrictions-with-bcp.html#Using_Playback_Rights">Playback Restrictions with Brightcove Player</a> document. </p>
+      <li>Créez un script personnalisé avec le code intégré Advanced.
+        <p>Le jeton JWT est transmis avec la demande de lecteur. Si le jeton n'est pas valide ou a expiré, l'accès au contenu sera restreint. Le lecteur doit être configuré pour utiliser le jeton.</p>
+        <p> Pour configurer le lecteur Web Brightcove, consultez le<a href="https://player.support.brightcove.com/playback/playback-restrictions-with-bcp.html#Using_Playback_Rights"> document Restrictions de</a> lecteur avec le lecteur Brightcove. </p>
       </li>
-      <li>Confirm playback in your web page.</li>
-      <li>Confirm that playback can be blocked by changing the settings for the Playback Right assigned to the video (live event).</li>
-    </ol>
-  </section>
-</article>
+      <li>Confirmez la lecteur sur votre page Web.</li>
+      <li>Vérifiez que la lecteur peut être bloquée en modifiant les paramètres du droit de lecteur attribué à la vidéo (événement en direct).</li>
+    </ol>   </section></article>

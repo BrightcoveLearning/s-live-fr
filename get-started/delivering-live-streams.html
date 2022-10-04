@@ -1,67 +1,53 @@
 <article class="bcls-article">
-  <h1>{{ page.title }}</h1>
-  <summary>{{ page.description }}</summary>
-  <section class="bcls-section">
-    <p>Brightcove's live streaming video feature enables you to deliver high-quality live streaming broadcasts to any device or browser. You can deliver live streams without any custom development or complex integration, however, APIs are available if you have custom needs or require custom integrations.</p>
-    <aside class="bcls-aside bcls-aside--information">Note: Live streaming support is available only for Enterprise publishers.</aside>
-    <p>Brightcove also supports live streaming with DVR. When a Brightcove Player is configured with the <a href="https://player.support.brightcove.com/plugins/live-dvrux-plugin.html">DVRUX plugin</a>, live streams act like they are being played through the viewer's digital video recorder.</p>
-    <p>Brightcove offers several options for delivering live streams. This topic contains the following sections:</p>
+  <h1>{{page.title}}</h1> <summary>{{page.description}}</summary> <section class="bcls-section">
+    <p>La fonction de diffusion vidéo en direct de Brightcove vous permet de diffuser des diffusions en direct de haute qualité sur n'importe quel appareil ou navigateur. Vous pouvez diffuser des flux en direct sans développement personnalisé ni intégration complexe. Toutefois, des API sont disponibles si vous avez des besoins personnalisés ou si vous avez besoin d'intégrations personnalisées.</p> <aside class="bcls-aside bcls-aside--information">Remarque: La prise en charge du streaming en direct est disponible uniquement pour les éditeurs Enterprise.</aside>
+    <p>Brightcove prend également en charge la diffusion en direct avec DVR Lorsqu'un lecteur Brightcove est configuré avec le plug-in<a href="https://player.support.brightcove.com/plugins/live-dvrux-plugin.html"> DVRUX</a>, les flux en direct se comportent comme s'ils étaient lus via l'enregistreur vidéo numérique du spectateur.</p>
+    <p>Brightcove propose plusieurs options pour diffuser des flux en direct. Cette rubrique contient les sections suivantes:</p>
     <ul>
-      <li><a href="#compare">Hardware vs. cloud-based encoding</a></li>
-      <li><a href="#livemodule">Live streaming using the Live module</a></li>
-      <li><a href="#hardware">Live streaming using a hardware-based encoder</a></li>
+      <li><a href="#compare">Encodage matériel ou basé sur le cloud</a></li>
+      <li><a href="#livemodule">Diffusion en direct à l'aide du module Live</a></li>
+      <li><a href="#hardware">Diffusion en direct à l'aide d'un encodeur matériel</a></li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="compare">Encodage matériel ou basé sur le cloud</h2>
+    <p>Brightcove prend en charge l'encodage matériel et basé sur le cloud. Divers facteurs peuvent déterminer si le codage matériel ou basé sur le cloud convient le mieux à un événement.</p>
+    <h3>Quand utiliser le codage matériel</h3>
+    <ul>
+      <li>Avances linéaires 24 h/24, 7 j/7 lorsque la capacité est connue</li>
+      <li>Une architecture basée sur un seul site</li>
+      <li>Support des formats de diffusion</li>
     </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="compare">Hardware vs. cloud-based encoding</h2>
-    <p>Brightcove supports both hardware and cloud-based encoding. Various factors may determine whether hardware or cloud-based encoding is best for an event.</p>
-    <h3>When to use hardware encoding</h3>
+    <h3>Quand utiliser l'encodage dans le cloud</h3>
     <ul>
-      <li>24x7 linear feeds where capacity is known</li>
-      <li>An architecture based on a single location</li>
-      <li>Broadcast format support</li>
-    </ul>
-    <h3>When to use cloud encoding</h3>
+      <li>Pour les événements</li>
+      <li>Lorsque les besoins en capacité sont inconnus</li>
+      <li>Pour les organisations décentralisées</li>
+      <li>Lorsque le moment de l'événement est inconnu et que la vitesse est importante</li>
+      <li>S'il existe des goulots d'étranglement de la bande passante</li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="livemodule">Diffusion en direct à l'aide du module Live</h2>
+    <p>Le module Live fournit une interface facile à utiliser pour vous aider à diffuser un événement en direct sur les ordinateurs de bureau et les appareils mobiles. Aucune programmation n'est requise. Après avoir saisi les informations de votre événement dans le module Live, vous recevrez un ensemble de paramètres d'encodeur que vous connecterez à votre encodeur sur site. Tout le transcodage est effectué dans le cloud, vous n'avez donc pas besoin d'un transcodeur matériel. Pour plus d'informations, consultez l'un de ces documents.</p>
     <ul>
-      <li>For events</li>
-      <li>When capacity requirements are unknown</li>
-      <li>For de-centralized organizations</li>
-      <li>When event timing is unknown and speed is important</li>
-      <li>If there are bandwidth bottlenecks</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="livemodule">Live streaming using the Live module</h2>
-    <p>The Live module provides an easy to use interface to help you broadcast a live event to both desktop and mobile devices. No programming is required. After entering your event information into the Live module, you will be provided with a set of encoder settings that you plug into your on-site encoder. All transcoding is done in the cloud so you don't need a hardware based transcoder. For more information, see one of these documents.</p>
-    <ul>
-    {% if site.product_short == "Video Cloud" or site.product_short == "Beacon" or site.product_short == "CorpTV" %}
-      <li><a href="/live/live-module/creating-and-managing-live-events-using-live-module.html">Creating and Managing Live Events using the Live Module</a> - Provides all the details on using the Live module</li>
-      <li><a href="/live/get-started/step-step-using-live-module-telestream-wirecast.html">Step-by-Step: Using the Live Module with Telestream Wirecast</a> - Provides a step by step guide on using the Live module with Telestream Wirecast</li>
-      <li><a href="/live/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Step-by-Step: Using the Live Module with Open Broadcaster Software (OBS)</a> - Provides a step by step guide on using the Live module with Open Broadcaster Software</li>
-      <li><a href="/live/get-started/live-module-guidelines-and-best-practices.html">Live Module Guidelines and Best Practices</a> - Provides a series of best practices and recommendations to help ensure a high quality, stable, live streaming experience</li>
+    {% if site.product_short == Video Cloud-fr/ ou site.product_short == Beacon-fr/ ou site.product_short == CorpTV-fr/ %}
+      <li><a href="/live/live-module/creating-and-managing-live-events-using-live-module.html">Création et gestion d'événements en direct à l'aide du module Live</a> - Fournit tous les détails sur l'utilisation du module Live</li>
+      <li><a href="/live/get-started/step-step-using-live-module-telestream-wirecast.html">Étape par étape: Utilisation du module Live avec Telestream Wirecast</a> - Fournit un guide étape par étape sur l'utilisation du module Live avec Telestream Wirecast</li>
+      <li><a href="/live/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Étape par étape: Utilisation du module Live avec Open Broadcaster Software (OBS)</a> - Fournit un guide étape par étape sur l'utilisation du module Live avec Open Broadcaster Software</li>
+      <li><a href="/live/get-started/live-module-guidelines-and-best-practices.html">Directives et meilleures pratiques du module Live</a> - Fournit une série de bonnes pratiques et de recommandations pour vous aider à garantir une expérience de diffusion en direct stable et de haute qualité</li>
+        {% endif %} {% if site.product_short == Live-fr/ %}
+      <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">Création et gestion d'événements en direct à l'aide du module Live</a> - Fournit tous les détails sur l'utilisation du module Live</li>
+      <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">Étape par étape: Utilisation du module Live avec Telestream Wirecast</a> - Fournit un guide étape par étape sur l'utilisation du module Live avec Telestream Wirecast</li>
+      <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Étape par étape: Utilisation du module Live avec Open Broadcaster Software (OBS)</a> - Fournit un guide étape par étape sur l'utilisation du module Live avec Open Broadcaster Software</li>
+      <li><a href="/get-started/live-module-guidelines-and-best-practices.html">Directives et meilleures pratiques du module Live</a> - Fournit une série de bonnes pratiques et de recommandations pour vous aider à garantir une expérience de diffusion en direct stable et de haute qualité</li>
         {% endif %}
-    {% if site.product_short == "Live" %}
-      <li><a href="/live-module/creating-and-managing-live-events-using-live-module.html">Creating and Managing Live Events using the Live Module</a> - Provides all the details on using the Live module</li>
-      <li><a href="/get-started/step-step-using-live-module-telestream-wirecast.html">Step-by-Step: Using the Live Module with Telestream Wirecast</a> - Provides a step by step guide on using the Live module with Telestream Wirecast</li>
-      <li><a href="/get-started/step-step-using-live-module-open-broadcaster-software-obs.html">Step-by-Step: Using the Live Module with Open Broadcaster Software (OBS)</a> - Provides a step by step guide on using the Live module with Open Broadcaster Software</li>
-      <li><a href="/get-started/live-module-guidelines-and-best-practices.html">Live Module Guidelines and Best Practices</a> - Provides a series of best practices and recommendations to help ensure a high quality, stable, live streaming experience</li>
-        {% endif %}
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="live_api">Live API</h2>
-    <p>The Live API is a REST-based API that allows you to create and manage live streaming events. Optional features include:</p>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="live_api">API Live</h2>
+    <p>L'API Live est une API basée sur REST qui vous permet de créer et de gérer des événements de diffusion en direct. Les fonctionnalités optionnelles incluent:</p>
     <ul>
-      <li>Server-side ad insertion (SSAI)</li>
-      <li>AES-128 encryption</li>
-      <li>Create video-on-demand assets from clips taken from the live stream</li>
-      <li>DVR capability</li>
-      <li>Multiple CDNs</li>
+      <li>Insertion de publicités côté serveur (SSAI)</li>
+      <li>Chiffrement AES-128</li>
+      <li>Créez des ressources vidéo à la demande à partir de clips extraits de la diffusion en direct</li>
+      <li>Capacité DVR</li>
+      <li>Plusieurs CDN</li>
     </ul>
-    <p>For more information, see the <a href="https://apis.support.brightcove.com/live-api/index.html">Live API documentation</a>.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="hardware">Live streaming using a hardware-based encoder</h2>
-    <p>This option uses a hardware based encoder to encode and deliver live streams to your CDN. On the Video Cloud side, you create remote assets to host the streams and then you can publish a player for your live stream.</p>
-  </section>
-</article>
+    <p>Pour plus d'informations, consultez la documentation de l'API<a href="https://apis.support.brightcove.com/live-api/index.html"> Live</a>.</p>  </section><section class="bcls-section">
+    <h2 id="hardware">Diffusion en direct à l'aide d'un encodeur matériel</h2>
+    <p>Cette option utilise un encodeur matériel pour encoder et diffuser des flux en direct sur votre CDN. Du côté de Video Cloud, vous créez des ressources distantes pour héberger les flux, puis vous pouvez publier un lecteur pour votre flux en direct.</p>   </section></article>

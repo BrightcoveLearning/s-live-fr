@@ -1,298 +1,265 @@
 <article class="bcls-article">
-  <h1>{{ page.title }}</h1>
-  <summary>{{ page.description }}</summary>
-  <section class="bcls-section">
-    <h2 id="Overview">Overview</h2>
-    <p>Brightcove Live provides a robust service for creating live streaming events or 24/7 live streams. This guide outlines best practices for optimizing your live streams</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Content_context">Content context</h2>
-    <p>The type of content being streamed needs to be considered as it has an impact on the required settings for maintaining the quality of the input. Note that there are trade-offs and using the highest possible settings may cause issues such as skipped frames.</p>
-    <p>Based on the information below, we recommend that you test different setting combinations for quality and performance before your live event.</p>
-    <p>The key input parameters are outlined in the following table:</p>
+  <h1>{{page.title}}</h1> <summary>{{page.description}}</summary> <section class="bcls-section">
+    <h2 id="Overview">Aperçu</h2>
+    <p>Brightcove Live fournit un service robuste pour créer des événements de streaming en direct ou des diffusions en direct 24h/24 et 7j/ Ce guide décrit les meilleures pratiques pour optimiser vos diffusions en direct</p>  </section><section class="bcls-section">
+    <h2 id="Content_context">Contexte du contenu</h2>
+    <p>Le type de contenu diffusé en continu doit être pris en compte car il a un impact sur les paramètres requis pour maintenir la qualité de l'entrée. Notez qu'il existe des compromis et que l'utilisation des paramètres les plus élevés possibles peut entraîner des problèmes tels que des images ignorées.</p>
+    <p>Sur la base des informations ci-dessous, nous vous recommandons de tester différentes combinaisons de paramètres en termes de qualité et de performance avant votre événement en direct.</p>
+    <p>Les principaux paramètres d'entrée sont décrits dans le tableau suivant:</p>
     <table class="bcls-table">
       <caption class="bcls-caption--table">
-      Key Input Parameters for Live Streaming
+      Paramètres d'entrée clés pour la diffusion en direct
       </caption>
       <thead class="bcls-table__head">
         <tr>
-          <th>Parameter</th>
-          <th>Notes</th>
+          <th>Paramètre</th>
+          <th>Remarques</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
-          <td>Input bitrate</td>
-          <td>The bitrate that the encoder sends. Higher rates are more susceptible to network loss so should be kept as low as practical.</td>
+          <td>Débit binaire d'entrée</td>
+          <td>Débit binaire envoyé par l'encodeur. Les débits plus élevés sont plus sensibles aux pertes de réseau et doivent donc être maintenus aussi bas que possible.</td>
         </tr>
         <tr>
-          <td>Input resolution</td>
-          <td>This should match the source content. There is no benefit in making this greater than the original source and the higher this value is, the higher the bitrate is required to support it.</td>
+          <td>Résolution d'entrée</td>
+          <td>Cela doit correspondre au contenu source. Il n'y a aucun avantage à le rendre supérieur à la source d'origine et plus cette valeur est élevée, plus le débit binaire est élevé pour la prendre en charge.</td>
         </tr>
         <tr>
-          <td>Input bitrate to top profile ratio</td>
-          <td> The input bitrate should be higher than the rate of the top profile, but too much higher may result in dropped frames or other issues - e.g. if your top rate is 1080p 30fps, the input should ideally be around 4 MBPS. Note that this is affected by the profile. We generally recommend an input bitrate that is 2x (twice) the bitrate of your highest bitrate live rendition.
-            <p>If you require a high bitrate top output it is worth testing the <code>copy_video</code> setting which will simply copy your input encode to the output.</p></td>
+          <td>Rapport entre le débit binaire d'entrée et le profil supérieur</td>
+          <td> Le débit binaire d'entrée doit être supérieur au débit du profil supérieur, mais trop élevé peut entraîner des pertes d'images ou d'autres problèmes. Par exemple, si votre débit maximal est de 1080p 30 ips, l'entrée devrait idéalement être d'environ 4 Mbps. Notez que cela est affecté par le profil. Nous recommandons généralement un débit binaire d'entrée deux fois (deux fois) supérieur à celui de votre rendu en direct au débit binaire le plus élevé.
+            <p>Si vous avez besoin d'une sortie supérieure à débit binaire élevé, il vaut la peine de tester le<code> paramètre</code> copy_video qui copiera simplement votre encodage d'entrée sur la sortie.</p></td>
         </tr>
         <tr>
-          <td>Profiles</td>
-          <td> The different profiles (baseline, main, high) compress the data in ascending amounts (baseline: lowest, high: highest). Greater compression improves the rate of transmission, but also requires greater CPU resources to decode the data. Unless the encoder is highly constrained in available resources baseline profile should be avoided. On the other hand, using high profile at high bitrates is more likely to cause skipped frames due to the increased decode CPU resources required.
-            <p>Also see <a href="#gop_structure">GOP structure</a> below.</p></td>
+          <td>Profils</td>
+          <td> Les différents profils (base, principal, haut) compressent les données en quantités croissantes (base: la plus basse, la plus élevée: la plus élevée). Une compression plus importante améliore le taux de transmission, mais nécessite également des ressources CPU plus importantes pour décoder les données. À moins que le codeur ne soit fortement limité dans les ressources disponibles, le profil de base doit être évité. D'autre part, l'utilisation d'un profil élevé à haut débit est plus susceptible de provoquer des sauts de trames en raison de l'augmentation des ressources CPU de décodage requises.
+            <p>Voir également la structure<a href="#gop_structure"> du GOP</a> ci-dessous.</p></td>
         </tr>
         <tr>
-          <td>Frame rate</td>
-          <td> This should match the source.
-            <p>Higher rates will require proportionally higher input bitrates e.g. with action sport content a 60fps input stream carries substantially more data than a 30fps stream.</p>
-            <p>High rates such as 60fps are more likely to have skip frame issues on complex content at high bitrates.</p></td>
+          <td>Fréquence d'images</td>
+          <td> Cela doit correspondre à la source.
+            <p>Des débits plus élevés nécessiteront des débits d'entrée proportionnellement plus élevés. Par exemple, avec du contenu de sport d'action, un flux d'entrée de 60 images par seconde transporte sensiblement plus de données qu'un flux</p>
+            <p>Les débits élevés tels que 60 images par seconde sont plus susceptibles de présenter des problèmes de saut d'image sur du contenu complexe à haut débit.</p></td>
         </tr>
         <tr>
-          <td>Keyframe rate</td>
-          <td> The most efficient setting for this is the segment duration x frame rate - for example, if you have 6 second segments and 30fps making the keyframe rate 180 (6x30) would result in the lowest decoder load.
-            <p>However, to account for any fluctuations this is set to 2 x the frame rate - for example, 60 for a framerate of 30 fps.</p>
-            <aside class="bcls-aside bcls-aside--information language-editable">Note that the default ingest profiles for Live assume a framerate of 30 fps and therefore set the keyframe rate to 60. If your input stream has a different framerate (25 fps or 60 fps, for example) you should create a custom ingest profile by duplicating the default one and setting the keyframe rate to twice the framerate (for example, set it to 120 if the input framerate is 60 fps).</aside></td>
+          <td>Fréquence d'images clés</td>
+          <td> Le paramètre le plus efficace pour cela est la durée du segment x la fréquence d'images. Par exemple, si vous avez des segments de 6 secondes et 30 images par seconde, une fréquence d'images clés de 180 (6x30) entraînerait la charge du décodeur la plus faible.
+            <p>Toutefois, pour tenir compte des fluctuations, elle est définie sur 2 fois la fréquence d'images - par exemple, 60 pour une fréquence d'images par seconde de 30 images par seconde.</p> <aside class="bcls-aside bcls-aside--information language-editable">Notez que les profils d'acquisition par défaut pour Live supposent une fréquence d'images par seconde de 30 ips et définissent donc la fréquence d'images clés sur 60. Si votre flux d'entrée a une fréquence d'images différente (25 ips ou 60 ips, par exemple), vous devez créer un profil d'acquisition personnalisé en dupliquant le profil par défaut et en réglant la fréquence d'images clés sur deux fois la fréquence d'images par seconde (par exemple, définissez-la sur 120 si la fréquence d'images par seconde en entrée est de 60 ips).</aside></td>
         </tr>
         <tr>
-          <td>GOP structure</td>
-          <td>See <a href="#gop_structure">GOP structure</a> below.</td>
+          <td>Structure du GOP</td>
+          <td>Voir la structure<a href="#gop_structure"> du GOP</a> ci-dessous.</td>
         </tr>
       </tbody>
     </table>
-    <h3>Input restrictions</h3>
-    <p>In order to ensure the highest quality, most consistent streaming experience, Brightcove Live limits input stream settings to:</p>
+    <h3>Restrictions relatives</h3>
+    <p>Afin de garantir la meilleure qualité et l'expérience de diffusion la plus cohérente possible, Brightcove Live limite les paramètres de flux d'entrée à:</p>
     <ul>
-      <li>Protocol: <code translate="No">rtmp</code>, <code translate="No">rtp</code>, <code translate="No">rtp-fec</code>, or <code translate="No">srt</code> (all except <code translate="No">rtmp</code> are for MPEG2-TS inputs)<sup><strong><a href="#note1-1">[1-1]</a></strong></sup></li>
-      <li>Resolution: Maximum 1920x1080</li>
-      <li>Maximum 30 fps, which is typical. Brightcove supports up to 60 fps, but you will need to <a href="https://supportportal.brightcove.com/">Contact Brightcove Support</a> to have the limit increased. When using 60fps, Brightcove recommends increasing the bitrate to achieve the desired visual quality for the content and a constant frame rate.</li>
-      <li>Less than 10 Mbps</li>
-      <li>Constant Bitrate (CBR) greatly reduces the chance of problems</li>
-      <li>Video codec must be H.264</li>
-      <li>Slices: If your encoder has this option, set it to <code translate="no">1</code></li>
-      <li>Audio codec must be <code translate="No">AAC</code></li>
-      <li>Audio sampling rate: 44.1khz and 48khz are the recommended sample audio rates to use</li>
-      <li>Keyframe Rate or GOP (Group of Pictures) aligned:
+      <li>Protocole:<code translate="No"> rtmp</code>,<code translate="No"> rtp</code>,<code translate="No"> rtp-fec</code> ou<code translate="No"> srt</code> (tous sauf<code translate="No"> rtmp </code>sont pour les entrées MPEG2-TS)<sup><strong><a href="#note1-1"> [1-1]</a></strong></sup></li>
+      <li>Résolution: 1 920 x 1 080 maximum</li>
+      <li>Maximum de 30 images par seconde, ce qui est typique. Brightcove prend en charge jusqu'à 60 i/s, mais vous devrez<a href="https://supportportal.brightcove.com/"> contacter le support de Brightcove</a> pour faire augmenter la limite. Lors de l'utilisation de 60 images par seconde, Brightcove recommande d'augmenter le débit binaire afin d'obtenir la qualité visuelle souhaitée pour le contenu et une fréquence d'images constante.</li>
+      <li>Moins de 10 Mbits/s</li>
+      <li>Le débit binaire constant (CBR) réduit considérablement les risques de problèmes</li>
+      <li>Le codec vidéo doit être H.264</li>
+      <li>Tranches: Si votre encodeur dispose de cette option, définissez-la sur<code translate="no"> 1</code></li>
+      <li>Le codec audio doit être<code translate="No"> AAC</code></li>
+      <li>Fréquence d'échantillonnage audio: 44,1 kHz et 48 kHz sont les fréquences audio d'échantillonnage recommandées</li>
+      <li>Fréquence d'images clés ou GOP (groupe d'images) alignée:
         <ol type="a">
-          <li>A <strong>Keyframe</strong> should always occur every 2 seconds <strong>for both inputs and outputs (including 25fps video)</strong>. Meaning a keyframe is sent to Brightcove from the encoder every two seconds of the stream itself. This process can be defined in different ways, but <strong>Keyframe Rate</strong> is the most common. </li>
-          <li>It can be calculated in different ways by different encoders. For example:
+          <li>Une<strong> image-clé</strong> doit toujours apparaître toutes les 2 secondes<strong> pour les entrées et les sorties (y compris la vidéo à 25 ips)</strong>. Cela signifie qu'une image-clé est envoyée à Brightcove par l'encodeur toutes les deux secondes du flux lui-même. Ce processus peut être défini de différentes manières, mais la fréquence d'<strong>images clés</strong> est la plus courante. </li>
+          <li>Il peut être calculé de différentes manières par différents codeurs. Par exemple:
             <ul>
-              <li>Wirecast uses the amount of frames that pass, so for a 30fps video, the setting would be 60.</li>
-              <li>Elemental encoders use seconds so that the correct setting would be '2'.</li>
-              <li>60 FPS video will only change if this setting is counted by the frames, in which case every 120 frames would equal 2 seconds.</li>
+              <li>Wirecast utilise le nombre d'images qui passent, donc pour une vidéo à 30 ips, le réglage serait de 60.</li>
+              <li>Les codeurs élémentaires utilisent des secondes pour que le réglage correct soit 2-fr/.</li>
+              <li>La vidéo à 60 images par seconde ne changera que si ce paramètre est compté par le nombre d'images, auquel cas toutes les 120 images équivalent à 2 secondes.</li>
             </ul>
           </li>
         </ol>
-      <li>If there is an option for <strong>Keyframe Aligned</strong>, <strong>Sync GOP</strong>, <strong>Align Keyframes</strong>, or something along those lines, make sure Keyframes are aligned. When Keyframes are not aligned, it causes synchronization issues with HLS segmentation.</li>
+      <li>S'il existe une option pour Alignement des<strong> images-clés</strong>,<strong> Synchroniser le GOP</strong>,<strong> Aligner les images-clés</strong> ou quelque chose de ce type, assurez-vous que les images-clés sont alignées. Lorsque les images-clés ne sont pas alignées, cela entraîne des problèmes de synchronisation avec la segmentation HLS.</li>
     </ul>
-    <h4>Notes</h4>
+    <h4>Remarques</h4>
     <ul>
-      <li id="note1-1"><sup><strong>[1-1]</strong></sup> If you have multiple video/audio tracks in your TS input, we will pick the first for each. We also strongly recommend using FEC, as plain TS over UDP over the internet is very unreliable. For FEC, we could note that the <em>smaller</em> the values you use for rows/columns, the more reliable the error correction will be (at the cost of increased bandwidth.</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Key_issues">Key issues with streaming</h2>
-    <p>There are several issues that are generally encountered that relate to problems with the streaming experience from the encoder to Brightcove:</p>
+      <li id="note1-1"><sup><strong>[1-1]</strong></sup> Si vous avez plusieurs pistes vidéo/audio dans votre entrée TS, nous choisirons la première pour chacune d'elles. Nous recommandons également fortement d'utiliser FEC, car le simple TS sur UDP sur Internet n'est pas très fiable. Pour FEC, nous pouvons noter que<em> plus</em> les valeurs que vous utilisez pour les lignes/colonnes sont petites, plus la correction d'erreur sera fiable (au prix d'une bande passante accrue).</li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="Key_issues">Principaux problèmes liés au streaming</h2>
+    <p>Plusieurs problèmes liés à l'expérience de diffusion en continu de l'encodeur vers Brightcove sont généralement rencontrés:</p>
     <ol>
-      <li> Network instability affecting the input:
+      <li> Instabilité du réseau affectant l'entrée:
         <ol>
-          <li>While the internet is generally quite reliable it is not infallible and issues do occur. Issues are more likely to be noticed on higher bitrates.</li>
-          <li>If it takes longer to upload the video than real time then this can result in input drift (the time that the video is received is substantially later than when it was sent)</li>
+          <li>Bien qu'Internet soit généralement assez fiable, il n'est pas infaillible et des problèmes peuvent survenir. Les problèmes sont plus susceptibles d'être remarqués sur les débits supérieurs.</li>
+          <li>Si le téléchargement de la vidéo prend plus de temps que le temps réel, cela peut entraîner une dérive d'entrée (le temps de réception de la vidéo est sensiblement plus long que lorsqu'elle a été envoyée)</li>
         </ol>
       </li>
-      <li> Transcoder overload resulting in skip frames: while we do everything to make sure our transcoders have enough overhead sometimes sudden spikes in either content complexity, network hiccups/ catchups or other interruptions to our transcoders can cause skip frames. The more complex the input is then the more likely it is that skipped frames will be encountered. There is also a known issue where changes from a still image for an extended duration e.g. longer than 5 minutes and a sudden change to action content can cause an overload. </li>
-      <li>Encoder sending variable frame durations: the frame rate should be constant and it should be such that it allows for a keyframe interval that is constant. For example, for a frame rate such as 29.97 aka 30000/1001 or 23.976 aka 24000/1001 it is not possible to set a keyframe at a regular interval and as such should be avoided.</li>
-      <li>Encoder sending keyframes that are not a consistent duration apart, the keyframe rate should be a minimum of 2x the frame rate in seconds. For example, for a frame rate of 30fps the keyframe interval should be 60 frames which is 2 seconds and should be a maximum interval of once per segment - for example, if you have a 6 second segment then the maximum interval would be 180 frames at 30 fps</li>
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Content_types">Content types</h2>
-    <p>Generally, more complex content will require using the higher of these settings and as such is more susceptible to skipped frames. The table below shows some examples in order of complexity. Note that these are examples only, and as just about every encoder setup is different. Testing and verification should be performed.</p>
+      <li> Surcharge du transcodeur entraînant des sauts de trames: alors que nous faisons tout pour nous assurer que nos transcodeurs ont une surcharge suffisante, parfois des pics soudains de complexité du contenu, des hoquets/rattrapages du réseau ou d'autres interruptions de nos transcodeurs peuvent provoquer des sauts de trames. Plus l'entrée est complexe, plus il est probable que des trames ignorées soient rencontrées. Il existe également un problème connu selon lequel les modifications d'une image fixe pendant une durée prolongée, par exemple plus de 5 minutes, et une modification soudaine du contenu de l'action peuvent entraîner une surcharge. </li>
+      <li>Encodeur envoyant des durées d'images variables: la fréquence d'images doit être constante et elle doit être telle qu'elle permette un intervalle d'images-clés constant. Par exemple, pour une fréquence d'images telle que 29,97 alias 30000/1001 ou 23,976 alias 24000/1001, il n'est pas possible de définir une image-clé à un intervalle régulier et doit donc être évitée.</li>
+      <li>Encodeur envoyant des images clés dont la durée n'est pas constante, la fréquence d'images clés doit être au moins égale à deux fois la fréquence d'images en secondes. Par exemple, pour une fréquence d'images de 30 images par seconde, l'intervalle d'images clés doit être de 60 images, soit 2 secondes et doit être un intervalle maximum d'une fois par segment. Par exemple, si vous avez un segment de 6 secondes, l'intervalle maximum serait de 180 images à 30 ips.</li>
+    </ol>  </section><section class="bcls-section">
+    <h2 id="Content_types">Types de contenu</h2>
+    <p>En général, un contenu plus complexe nécessite l'utilisation du paramètre le plus élevé de ces paramètres et est donc plus susceptible d'être ignoré. Le tableau ci-dessous présente quelques exemples par ordre de complexité. Notez que ce ne sont que des exemples, et que presque chaque configuration d'encodeur est différente. Des tests et des vérifications doivent être effectués.</p>
     <table class="bcls-table">
       <caption class="bcls-caption--table">
-      Content Type Examples
+      Exemples de types de contenu
       </caption>
       <thead class="bcls-table__head">
         <tr>
-          <th>Content Type</th>
-          <th>Example Settings</th>
+          <th>Type de contenu</th>
+          <th>Exemples de paramètres</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
           <td>Webcam</td>
           <td><ul>
-              <li>Resolution: 360p</li>
-              <li>Bitrate: 1 MBPS</li>
-              <li>Profile: Baseline</li>
+              <li>Résolution: 360p</li>
+              <li>Débit binaire: 1 MBITS/S</li>
+              <li>Profil: Référence</li>
             </ul></td>
         </tr>
         <tr>
-          <td>Web conference</td>
+          <td>Conférence Web</td>
           <td><ul>
-              <li>Resolution: 480p</li>
-              <li>Bitrate: 2.5 MBPS</li>
-              <li>Profile: Main</li>
+              <li>Résolution: 480p</li>
+              <li>Débit binaire: 2,5 MBITS/S</li>
+              <li>Profil: Principale</li>
             </ul></td>
         </tr>
         <tr>
           <td>Animation</td>
           <td><ul>
-              <li>Resolution: 720p</li>
-              <li>Bitrate: 2.5 MBPS</li>
-              <li>Profile: Main</li>
+              <li>Résolution: 720p</li>
+              <li>Débit binaire: 2,5 MBITS/S</li>
+              <li>Profil: Principale</li>
             </ul></td>
         </tr>
         <tr>
-          <td>Talking Head / News</td>
+          <td>Talking Head//Actualités</td>
           <td><ul>
-              <li>Resolution: 720p</li>
-              <li>Bitrate: 4 MBPS</li>
-              <li>Profile: Main</li>
+              <li>Résolution: 720p</li>
+              <li>Débit binaire: 4 MBITS/S</li>
+              <li>Profil: Principale</li>
             </ul></td>
         </tr>
         <tr>
-          <td>Live Concert</td>
+          <td>Concert en direct</td>
           <td><ul>
-              <li>Resolution: 1080p (or source)</li>
-              <li>Bitrate: 5 MBPS</li>
-              <li>Profile: High</li>
+              <li>Résolution: 1080p (ou source)</li>
+              <li>Débit binaire: 5 MBITS/S</li>
+              <li>Profil: Élevé</li>
             </ul></td>
         </tr>
         <tr>
-          <td>Live Sport</td>
+          <td>Sport en direct</td>
           <td><ul>
-              <li>Resolution: 1080p (or source)</li>
-              <li>Bitrate: 6 MBPS</li>
-              <li>Profile: High</li>
+              <li>Résolution: 1080p (ou source)</li>
+              <li>Débit binaire: 6 MBITS/S</li>
+              <li>Profil: Élevé</li>
             </ul></td>
         </tr>
         <tr>
-          <td>Live Sport High FPS</td>
+          <td>Live Sport FPS élevé</td>
           <td><ul>
-              <li>Resolution: 1080p (or source)</li>
-              <li>Bitrate: 10 MBPS</li>
-              <li>Profile: High</li>
+              <li>Résolution: 1080p (ou source)</li>
+              <li>Débit binaire: 10 MBITS/S</li>
+              <li>Profil: Élevé</li>
             </ul></td>
         </tr>
       </tbody>
-    </table>
-  </section>
-  <section class="bcls-section">
-    <h2 id="verification">Verification and testing</h2>
-    <p>Ideally you should start with the lowest possible settings on your most complex (most changing content) and test with their content by increasing the various settings until the output is acceptable. This is because generally the higher the settings the more likely issues are to be encountered in either the network or transcoding.</p>
-    <h3>Testing bandwidth</h3>
-    <p>The first step towards arriving at the appropriate settings for the input stream is to determine the available bandwidth on site. There are a few tools that can help:</p>
+    </table>  </section><section class="bcls-section">
+    <h2 id="verification">Vérification et essais</h2>
+    <p>Idéalement, vous devriez commencer avec les paramètres les plus bas possibles sur votre contenu le plus complexe (le plus changeant) et testez leur contenu en augmentant les différents paramètres jusqu'à ce que la sortie soit acceptable. En effet, plus les paramètres sont élevés, plus les problèmes sont susceptibles de se produire sur le réseau ou lors du transcodage.</p>
+    <h3>Test de bande passante</h3>
+    <p>La première étape pour obtenir les paramètres appropriés pour le flux d'entrée consiste à déterminer la bande passante disponible sur site. Voici quelques outils qui peuvent vous aider:</p>
     <ul>
-      <li>SpeedOf.Me (<a href="https://speedof.me">http://speedof.me</a>) - Determining the total bandwidth available for HTTP connections is a good first step. However, since the input feed will be streamed to the Live module over RTMP instead of HTTP, the actual bandwidth available for RTMP connections will be significantly less.</li>
-      <li>Speedtest (<a href="http://www.speedtest.net">http://www.speedtest.net</a>) - Online tool for determining current upload and download speeds.</li>
+      <li>Speedof.me (<a href="https://speedof.me">http://speedof.me</a>) - Déterminer la bande passante totale disponible pour les connexions HTTP est une bonne première étape. Toutefois, étant donné que le flux d'entrée sera diffusé en continu vers le module Live via RTMP au lieu de HTTP, la bande passante réelle disponible pour les connexions RTMP sera nettement inférieure.</li>
+      <li>Speedtest (<a href="http://www.speedtest.net">http://www.speedtest.net</a>) - Outil en ligne permettant de déterminer les vitesses de téléversement et de téléchargement actuelles.</li>
     </ul>
-    <h3>Input Bandwidth</h3>
-    <p>Providing a high-quality, stable input stream is the only way to ensure the best user experience for viewers. A good input stream provides the best video quality at the highest consistently available bandwidth from a location.</p>
+    <h3>Bande passante d'entrée</h3>
+    <p>Fournir un flux d'entrée stable et de haute qualité est le seul moyen de garantir la meilleure expérience utilisateur aux spectateurs. Un bon flux d'entrée fournit la meilleure qualité vidéo avec la bande passante la plus élevée disponible en permanence depuis un emplacement.</p>
     <ul>
-      <li>Minimum input bandwidth: 2.5 mbps</li>
-      <li>Maximum input bandwidth: 10 mbps</li>
-    </ul>
-    <aside class="bcls-aside bcls-aside--information">Note: For the best user experience, match your output renditions to the quality of your encoder stream.</aside>
-    <h3>Determining encoder capabilities</h3>
-    <p>Understanding the capabilities of the software and hardware used to encode the live stream and send it to the Live module is also important. There may be plenty of bitrate to send a high-quality, 1080p input stream, but the hardware also needs to be able to encode in faster-than-realtime speeds. Some encoding tools display information about the total CPU usage and bandwidth being used. For example, Telestream Wirecast will display the output statistics at the bottom of the Wirecast window.</p>
-    <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/get-started/wirecast-status-bar.png" /></figure>
-    <p>This information is useful when determining the most stable, highest quality stream that is possible on given hardware. Things to watch in Wirecast:</p>
+      <li>Bande passante d'entrée minimale: 2,5 Mbits/s</li>
+      <li>Bande passante d'entrée maximale: 10 Mbits/s</li>
+    </ul> <aside class="bcls-aside bcls-aside--information">Remarque: Pour une expérience utilisateur optimale, adaptez vos rendus de sortie à la qualité de votre flux d'encodeur.</aside>
+    <h3>Déterminer les capacités du</h3>
+    <p>Il est également important de comprendre les capacités du logiciel et du matériel utilisés pour coder le flux en direct et l'envoyer au module Live. Il peut y avoir beaucoup de débit binaire pour envoyer un flux d'entrée 1080p de haute qualité, mais le matériel doit également être capable de coder à des vitesses plus rapides que le temps réel. Certains outils de codage affichent des informations sur l'utilisation totale du processeur et la bande passante utilisée. Par exemple, Telestream Wirecast affichera les statistiques de sortie en bas de la fenêtre Wirecast.</p> <figure class="bcls-figure"><img class="bcls-image--no-border" alt="" src="/assets/images/s-live-img/get-started/wirecast-status-bar.png" /></figure>
+    <p>Ces informations sont utiles pour déterminer le flux le plus stable et de la plus haute qualité possible sur un matériel donné. Ce qu'il faut regarder dans Wirecast:</p>
     <ul>
-      <li>CPU should be less than 80%</li>
-      <li>Datarate should be near the target bitrate</li>
-      <li>FPS should be at the rate of the input stream settings</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="gop_structure">GOP structure</h2>
-    <p>The Group of Pictures (GOP) structure of the video is dependent first on the profile that is used as:</p>
+      <li>Le processeur doit être inférieur à 80&nbsp;%</li>
+      <li>Le datarate doit être proche du débit cible</li>
+      <li>Les images par seconde doivent être au rythme des paramètres du flux d'entrée</li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="gop_structure">Structure du GOP</h2>
+    <p>La structure du groupe d'images (GOP) de la vidéo dépend d'abord du profil utilisé comme suit:</p>
     <ol>
-      <li><strong>Baseline</strong> profile only supports I and P frames and CAVLC entropy encoding</li>
-      <li><strong>Main</strong> and <strong>High</strong> support I, B and P frames and CABAC entropy encoding</li>
+      <li><strong>Le</strong> profil de base prend uniquement en charge les trames I et P et le codage entropique CAVLC</li>
+      <li><strong></strong>Prise en charge principale<strong> et</strong> élevée des trames I, B et P et du codage entropique CABAC</li>
     </ol>
-    <p>Main and High profiles generally result in better compression at better quality but also require additional computation to encode and decode, as such may be more susceptible to skipped frames. In addition, as these profiles use B (bi-directional) frames, they induce some delay in the encoding process.</p>
-    <p>Baseline profile requires less CPU to encode and decode, but as it offers less compression, it requires a higher bitrate to maintain quality and as such is more susceptible to network issues.</p>
-    <h3>Notes on frame types and their likely impact on performance:</h3>
+    <p>Les profils principal et élevé permettent généralement d'obtenir une meilleure compression avec une meilleure qualité, mais nécessitent également des calculs supplémentaires pour le codage et le décodage, car ils peuvent être plus sensibles aux trames sautées. De plus, comme ces profils utilisent des trames B (bidirectionnelles), ils induisent un certain retard dans le processus de codage.</p>
+    <p>Le profil de base nécessite moins de CPU pour le codage et le décodage, mais comme il offre moins de compression, il nécessite un débit binaire plus élevé pour maintenir la qualité et est donc plus sensible aux problèmes de réseau.</p>
+    <h3>Remarques sur les types d'images et leur impact probable sur les performances:</h3>
     <ol>
-      <li><strong>I frames</strong>: uses the most bandwidth. Best added for complete scene changes or at the segment boundaries - i.e. the more the content changes the more of these you need (shorter GOP length)</li>
-      <li><strong>P frames</strong>: are the base unit between I frames</li>
-      <li><strong>B frames</strong>: use both prior and future frames, the more you add the better the compression will be but the higher the CPU and latency</li>
+      <li><strong>I frames</strong>: utilise le plus de bande passante. Il est préférable de l'ajouter pour les changements de scène complets ou aux limites des segments, c'est-à-dire que plus le contenu change, plus vous en avez besoin (longueur de GOP plus courte)</li>
+      <li><strong>Cadres P</strong>: sont l'unité de base entre les images I</li>
+      <li><strong>Trames B</strong>: utilisez à la fois les trames précédentes et futures, plus vous en ajoutez, meilleure sera la compression, mais plus le processeur et la latence seront élevés</li>
     </ol>
-    <p>The use of <strong>I frames</strong> should ideally be limited to start of segments (critical if using passthrough) or scene changes. All or high numbers of I frames should be avoided as this can cause excess load leading to skipped frames.</p>
-    <h3>Additional notes:</h3>
+    <p>L'utilisation des images<strong> I</strong> devrait idéalement être limitée au début des segments (critique si l'on utilise le passthrough) ou aux changements de scène. Il convient d'éviter tout ou nombre élevé de trames I, car cela peut entraîner une charge excessive entraînant des sauts de trames.</p>
+    <h3>Remarques supplémentaires:</h3>
     <ul>
-      <li>Use options for preventing dense placement of key frames (example: <code>min_keyin</code> = 3+).</li>
-      <li>Use options ensuring a regular cadence of insertion of Key frames. For example, instead of specifying GOP length in seconds, specify it in exact fractions or frames.</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="bitrate">Bitrate</h2>
+      <li>Utilisez des options pour empêcher le placement dense des images clés (exemple:<code> min_keyin</code> = 3+).</li>
+      <li>Utilisez les options garantissant une cadence d'insertion régulière des images clés. Par exemple, au lieu de spécifier la longueur du GOP en secondes, spécifiez-la en fractions ou en images exactes.</li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="bitrate">Débit binaire</h2>
     <ul>
-      <li>Minimum input bandwidth: 2.5 mbps</li>
-      <li>Maximum input bandwidth: 10 mbps</li>
+      <li>Bande passante d'entrée minimale: 2,5 Mbits/s</li>
+      <li>Bande passante d'entrée maximale: 10 Mbits/s</li>
     </ul>
     <ul>
-      <li>Make the stream "almost CBR"" - with <code>max_bitrate</code> = 1.1 * target_bitrate.</li>
-      <li>Use strict HRD-compliant rate control mode, if available.</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Protocol">Protocol</h2>
-    <p>It is important to note that the internet is not a guaranteed delivery network, and that while an internet connection may be considered "good", it may not be good enough for reliable live video streaming at high quality. A small disruption in the path between the customer encoder and the Brightcove transcoding platform such as a small amount of congestion at an ISP, an unplanned failover between routers, or similar issues can cause a disruption in the video output. In high stakes live broadcast it is normal practice to have multiple dedicated networks consisting of either dedicated fibre, booked satellite bandwidth, or committed bandwidth on a managed network. This comes with a substantial cost, and in most cases it is possible to achieve a good enough outcome over the internet. If, however, it is critical to maintain fault-free transport please consider AWS Direct Connect or an ISP that can provide some level of dedicated bandwidth.</p>
-    <p>Generally, we recommend dedicating bandwidth two times the encoder's expected stream size to completely avoid any bandwidth-related network issues.</p>
-    <p>The options we recommend are (in order):</p>
+      <li>Rendre le flux presque CBR-fr/ - avec<code> max_bitrate</code> = 1.1 * target_bitrate.</li>
+      <li>Utilisez le mode de contrôle de débit strict conforme à la norme HRD, si disponible.</li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="Protocol">Protocole</h2>
+    <p>Il est important de noter qu'Internet n'est pas un réseau de diffusion garanti et que si une connexion Internet peut être considérée comme bonne-fr/, elle peut ne pas être suffisante pour un streaming vidéo en direct fiable et de haute qualité. Une petite interruption du chemin entre l'encodeur client et la plate-forme de transcodage Brightcove, telle qu'un léger encombrement chez un FAI, un basculement imprévu entre les routeurs ou des problèmes similaires, peut entraîner une perturbation de la sortie vidéo. Lors de la diffusion en direct à enjeux élevés, il est normal d'avoir plusieurs réseaux dédiés composés soit de fibres dédiées, soit de bande passante satellite réservée, soit de bande passante dédiée sur un réseau géré. Cela a un coût substantiel et, dans la plupart des cas, il est possible d'obtenir un résultat suffisant sur Internet. Si, toutefois, il est essentiel de maintenir un transport sans défaillance, pensez à AWS Direct Connect ou à un FAI qui peut fournir un certain niveau de bande passante dédiée.</p>
+    <p>En règle générale, nous recommandons de consacrer une bande passante deux fois la taille de flux attendue de l'encodeur afin d'éviter complètement tout problème réseau lié à la bande passante.</p>
+    <p>Les options que nous recommandons sont (dans l'ordre):</p>
     <ol>
-      <li><strong>SRT</strong> - provides a good combination of speed of transport (UDP) with some control and error resilience. Not available on all encoders, though there are tools that can translate from local RTP such as srt-transmit.</li>
-      <li><strong>RTMP</strong> - being TCP based, it provides a good level of error resilience, downsides are that this comes with a substantial overhead. Note that not all features such as multiple audio tracks are available with RTMP.</li>
-      <li><strong>RTP-FEC</strong> - provides fast UDP based transport with some error resilience</li>
-      <li><strong>RTP</strong> - provides fast transport and advanced features with no error resilience</li>
-    </ol>
-    <aside class="bcls-aside bcls-aside--information">Note: if you use RTMP, please consider disabling slices if possible as they may result in parts of a frame arriving out of order.</aside>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Certified_encoders">Supported encoders</h2>
-    {% if site.product_short == "Video Cloud" or site.product_short == "Beacon" or site.product_short == "CorpTV" %}
-    <p>See <a href="/live/general/supported-encoders-live-events.html">Supported Encoders for Live Events</a> for list of encoders known to work with Live. Note that other encoders may also work, but have not been tested.</p>
-{% endif %}
-{% if site.product_short == "Live" %}
-          <p>See <a href="/general/supported-encoders-live-events.html">Supported Encoders for Live Events</a> for list of encoders known to work with Live. Note that other encoders may also work, but have not been tested.</p>
-{% endif %}
-  </section>
-  <section class="bcls-section">
-    <h2 id="Supported_CDNs">Supported CDNs</h2>
+      <li><strong>SRT</strong> - offre une bonne combinaison de vitesse de transport (UDP) avec un certain contrôle et une certaine résilience aux erreurs. Non disponible sur tous les encodeurs, bien qu'il existe des outils capables de traduire à partir du RTP local tels que srt-transmit.</li>
+      <li><strong>RTMP</strong> - étant basé sur TCP, il offre un bon niveau de résilience aux erreurs, les inconvénients sont que cela entraîne une surcharge importante. Notez que toutes les fonctionnalités telles que plusieurs pistes audio ne sont pas disponibles avec RTMP.</li>
+      <li><strong>RTP-FEC</strong> - fournit un transport rapide basé sur UDP avec une certaine résilience aux erreurs</li>
+      <li><strong>RTP</strong>: fournit un transport rapide et des fonctionnalités avancées sans aucune résistance aux erreurs</li>
+    </ol> <aside class="bcls-aside bcls-aside--information">Remarque: si vous utilisez RTMP, veuillez envisager de désactiver les tranches si possible, car elles peuvent entraîner des pertes d'ordre dans certaines parties d'une trame.</aside> </section> <section class="bcls-section">
+    <h2 id="Certified_encoders">Codeurs pris en charge</h2>
+    {% if site.product_short == Video Cloud-fr/ ou site.product_short == Beacon-fr/ ou site.product_short == CorpTV-fr/ %}
+    <p>Consultez Encodeurs<a href="/live/general/supported-encoders-live-events.html"> pris en charge pour les événements en direct</a> pour obtenir la liste des encodeurs connus pour fonctionner avec Live. Notez que d'autres encodeurs peuvent également fonctionner, mais n'ont pas été testés.</p>
+{% endif %} {% if site.product_short == Live-fr/ %}
+          <p>Consultez Encodeurs<a href="/general/supported-encoders-live-events.html"> pris en charge pour les événements en direct</a> pour obtenir la liste des encodeurs connus pour fonctionner avec Live. Notez que d'autres encodeurs peuvent également fonctionner, mais n'ont pas été testés.</p>
+{% endif %} </section> <section class="bcls-section">
+    <h2 id="Supported_CDNs">CDN pris en charge</h2>
     <ul>
       <li>Akamai</li>
       <li>Amazon CloudFront</li>
-    </ul>
-    <aside class="bcls-aside bcls-aside--information">The CDNs above are officially supported, but other file-based CDNs should work.</aside>
-  </section>
-  <section class="bcls-section">
-    <h2 id="retries">Retries</h2>
-    <p>We recommend enabling retries for the RTMP connection from the encoder. A large number of retry attempts with a 5-second retry interval will mitigate any intermittent connectivity issues between the encoder and the entry point.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="job_settings">Job settings (Live API only)</h2>
-    <p>Recommended job settings</p>
+    </ul> <aside class="bcls-aside bcls-aside--information">Les CDN ci-dessus sont officiellement pris en charge, mais d'autres CDN basés sur des fichiers devraient fonctionner.</aside> </section> <section class="bcls-section">
+    <h2 id="retries">Nouvelles tentatives</h2>
+    <p>Nous recommandons d'activer les nouvelles tentatives pour la connexion RTMP à partir de l'encodeur. Un grand nombre de nouvelles tentatives avec un intervalle de 5 secondes permet d'atténuer les problèmes de connectivité intermittents entre le codeur et le point d'entrée.</p>  </section><section class="bcls-section">
+    <h2 id="job_settings">Paramètres de la tâche (Live API uniquement)</h2>
+    <p>Paramètres de travail recommandés</p>
     <table class="bcls-table">
       <caption class="bcls-caption--table">
-      Job Settings
+      Paramètres de la tâche
       </caption>
       <thead class="bcls-table__head">
         <tr>
-          <th>Field</th>
-          <th>Recommended Value</th>
+          <th>terrain</th>
+          <th>Valeur recommandée</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
           <td><code translate="No">ad_audio_loudness_level</code></td>
-          <td><code translate="No">-23 </code> (EBU R.128 standard)</td>
+          <td><code translate="No">-23</code> (norme EBU R.128)</td>
         </tr>
       </tbody>
-    </table>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Start_a_live_stream_recommendations">Start a live stream recommendations</h2>
-    <p>A job must be activated before the encoder connection. Also, activating a job after starting the stream from the encoder is not a supported procedure and may cause unexpected behavior.</p>
-  </section>
+    </table>  </section><section class="bcls-section">
+    <h2 id="Start_a_live_stream_recommendations">Commencer une diffusion en direct</h2>
+    <p>Une tâche doit être activée avant la connexion du codeur. En outre, l'activation d'une tâche après le démarrage du flux à partir de l'encodeur n'est pas une procédure prise en charge et peut entraîner un comportement inattendu.</p> </section>
   
   <!-- <section class="bcls-section">
     <h2 id="input_requirements">Input requirements</h2>
@@ -350,100 +317,90 @@
     <ul>
       <li id="note1-1"><sup><strong>[1-1]</strong></sup> If you have multiple video/audio tracks in your TS input, we will pick the first for each. We also strongly recommend using FEC, as plain TS over UDP over the internet is very unreliable. For FEC, we could note that the <em>smaller</em> the values you use for rows/columns, the more reliable the error correction will be (at the cost of increased bandwidth.</li>
     </ul>
-  </section> -->
-  
-  <section class="bcls-section">
-    <h2 id="slate_source_file_recommendations">Slate source file recommendations</h2>
+  </section> --> <section class="bcls-section">
+    <h2 id="slate_source_file_recommendations">Recommandations relatives au fichier source Slate</h2>
     <ul>
-      <li><strong>Resolution</strong>: (best in your encoding ladder)</li>
-      <li><strong>FPS</strong>: (same as your source)</li>
-      <li><strong>Bitrate</strong>: (best in your encoding ladder or better)</li>
-      <li><strong>Audio</strong>: (same bitrate, channels, sampling frequency, and bits per sample as your best rendition, or same as your input)</li>
-    </ul>
-  </section>
-  <section class="bcls-section">
-    <h2 id="output_recommendations">Output recommendations</h2>
-    <p>Below are recommended output settings, but note that for many encoders, the RTMP input is limited to 10 MBPS (video + audio) and a framerate of 30fps.</p>
+      <li><strong>Résolution</strong>: (la meilleure dans votre échelle d'encodage)</li>
+      <li><strong>FPS</strong>: (identique à votre source)</li>
+      <li><strong>Débit binaire</strong>: (meilleur dans votre échelle d'encodage ou mieux)</li>
+      <li><strong>Audio</strong>: (même débit, canaux, fréquence d'échantillonnage et bits par échantillon que votre meilleur rendu, ou identique à votre entrée)</li>
+    </ul>  </section><section class="bcls-section">
+    <h2 id="output_recommendations">Recommandations de sortie</h2>
+    <p>Vous trouverez ci-dessous les paramètres de sortie recommandés, mais notez que pour de nombreux encodeurs, l'entrée RTMP est limitée à 10 Mbits/s (vidéo+audio) et à une fréquence d'images par seconde de 30 images par seconde.</p>
     <table class="bcls-table">
       <caption class="bcls-caption--table">
-      Output Recommendations
+      Recommandations de sortie
       </caption>
       <thead class="bcls-table__head">
         <tr>
-          <th>Item</th>
-          <th>Recommendation</th>
+          <th>Article</th>
+          <th>Recommandation</th>
         </tr>
       </thead>
       <tbody class="bcls-table__body">
         <tr>
-          <td>Video codec</td>
-          <td><code translate="No">h264</code> is currently the only option</td>
+          <td>Codec vidéo</td>
+          <td><code translate="No">h264</code> est actuellement la seule option</td>
         </tr>
         <tr>
-          <td>Audio codec</td>
-          <td><code translate="No">aac</code> is currently the only option</td>
+          <td>Codec audio</td>
+          <td><code translate="No">aac</code> est actuellement la seule option</td>
         </tr>
         <tr>
-          <td>Width</td>
-          <td>If no <code translate="No">width</code> or <code translate="No">height</code> is supplied, the source dimensions are used. If either <code translate="No">width</code> or <code translate="No">height</code> is supplied, the other dimension will be calculated to maintain the aspect ratio of the source.</td>
+          <td>Largeur</td>
+          <td>Si aucune<code translate="No"> largeur</code> ou<code translate="No"> hauteur n'</code>est fournie, les dimensions de la source sont utilisées. Si la<code translate="No"> largeur</code> ou la<code translate="No"> hauteur</code> est fournie, l'autre dimension sera calculée pour conserver le rapport hauteur/largeur de la source.</td>
         </tr>
         <tr>
-          <td>Height</td>
-          <td>If no <code translate="No">width</code> or <code translate="No">height</code> is supplied, the source dimensions are used. If either <code translate="No">width</code> or <code translate="No">height</code> is supplied, the other dimension will be calculated to maintain the aspect ratio of the source.</td>
+          <td>Hauteur</td>
+          <td>Si aucune<code translate="No"> largeur</code> ou<code translate="No"> hauteur n'</code>est fournie, les dimensions de la source sont utilisées. Si la<code translate="No"> largeur</code> ou la<code translate="No"> hauteur</code> est fournie, l'autre dimension sera calculée pour conserver le rapport hauteur/largeur de la source.</td>
         </tr>
         <tr>
-          <td>Bitrate</td>
-          <td>Less than or equal to the input bitrate (for best results, highest output bitrate should be half of the input bitrate)</td>
+          <td>Débit binaire</td>
+          <td>Inférieur ou égal au débit d'entrée (pour de meilleurs résultats, le débit binaire de sortie le plus élevé doit être la moitié du débit d'entrée)</td>
         </tr>
         <tr>
-          <td>Keyframe rate</td>
-          <td>2 seconds</td>
+          <td>Fréquence d'images clés</td>
+          <td>2 secondes</td>
         </tr>
       </tbody>
-    </table>
-  </section>
-  <section class="bcls-section">
+    </table>  </section><section class="bcls-section">
     <h2 id="FAQ">FAQ</h2>
     <dl>
-      <dt class="bcls-question">How soon do you have to start streaming after creating a live job?</dt>
-      <dd class="bcls-answer">In Brightcove Live, there are two conditions when the state transitions from <code translate="No">waiting </code> to <code translate="No">finishing </code>:
+      <dt class="bcls-question">Dans combien de temps devez-vous commencer à diffuser en continu après avoir créé un emploi en direct&nbsp;?</dt>
+      <dd class="bcls-answer">Dans Brightcove Live, il existe deux conditions lorsque l'état passe de l'état en<code translate="No"> attente</code> à la<code translate="No"> fin</code>:
         <ol>
-          <li>if the job is in the <strong>waiting</strong> state (not yet started) and the <code translate="No">max_waiting_time_ms</code> has elapsed, the job is finished/deactivated.</li>
-          <li>If the job is in the <strong>disconnected</strong> state (started, but disconnected) and the <code translate="No">reconnect_time</code> has elapsed, the job is finished/deactivated.</li>
+          <li>si la tâche est en<strong> attente (</strong>pas encore démarrée) et que la<code translate="No"> valeur max_waiting_time_ms est</code> écoulée, la tâche est terminée/désactivée.</li>
+          <li>Si la tâche est à l'<strong>état</strong> déconnecté (démarrée, mais déconnectée) et que<code translate="No"> le temps de reconnexion</code> est écoulé, la tâche est terminée/désactivée.</li>
         </ol>
-        <p>If the <code translate="No">event_length </code> is greater than 30 minutes, the job will terminate in 30 minutes. If the <code translate="No">event_length </code> is less than 30 minutes, the job will terminate in <code translate="No">event_length </code>.</p>
-        <p>For example, if the <code translate="No">event_length </code> is 60 minutes, then, the live job will terminate in 30 minutes. If the <code translate="No">event_length </code> is 15 minutes, then, the live job will terminate in 15 minutes</p>
-        <p>The <code translate="No">reconnect_time </code> has no effect for waiting state.</p>
+        <p>Si la<code translate="No"> durée de l'événement</code> est supérieure à 30 minutes, la tâche se terminera dans 30 minutes. Si la<code translate="No"> durée de l'événement</code> est inférieure à 30 minutes, la tâche se terminera dans<code translate="No"> event_length</code>.</p>
+        <p>Par exemple, si la<code translate="No"> durée de l'événement</code> est de 60 minutes, la tâche en direct se terminera dans 30 minutes. Si la<code translate="No"> durée de l'événement</code> est de 15 minutes, la tâche en direct se terminera dans 15 minutes</p>
+        <p>Le<code translate="No"> reconnect_time n'</code>a aucun effet sur l'état d'attente.</p>
       </dd>
-      <dt class="bcls-question">What are the limitations on concurrent live job_settings?</dt>
+      <dt class="bcls-question">Quelles sont les limites des paramètres de travail en direct simultanés&nbsp;?</dt>
       <dd class="bcls-answer">
-        <p>A maximum of 5 active <strong>waiting, unstarted</strong> jobs is allowed at any time.</p>
-        <p>Additional limitations on concurrent jobs:</p>
+        <p>Un maximum de 5<strong> tâches actives non démarrées en</strong> attente est autorisé à tout moment.</p>
+        <p>Limitations supplémentaires concernant les tâches simultanées:</p>
         <ul>
-          <li>The number of <code translate="No">channel</code> (24x7) jobs is limited to 0 or a low number per region (depending on the account type).</li>
-          <li>The number of concurrently <strong>running</strong> <code translate="No">event</code> jobs is limited by region, generally to 100.</li>
-          <li>The number of concurrently <strong>waiting to connect</strong> <code translate="No">event</code> jobs is limited to 5.</li>
-          <li>The number of SEP jobs per region is limited to 3 or 10 (see <a href="https://apis.support.brightcove.com/live-api/getting-started/overview-brightcove-live-api.html#Support_aws_regions">Supported AWS regions</a>).</li>
+          <li>Le nombre de tâches de<code translate="No"> canal</code> (24 h/24, 7 j/7) est limité à 0 ou à un faible nombre par région (selon le type de compte).</li>
+          <li>Le nombre de<strong> tâches </strong> <code translate="No"></code>événementielles en cours d'exécution simultanée est limité par région, généralement à 100.</li>
+          <li>Le nombre de<strong> tâches </strong> <code translate="No"></code>événementielles en attente de connexion simultanées est limité à 5.</li>
+          <li>Le nombre de tâches SEP par région est limité à 3 ou 10 (voir Régions AWS<a href="https://apis.support.brightcove.com/live-api/getting-started/overview-brightcove-live-api.html#Support_aws_regions"> prises en charge</a>).</li>
         </ul>
-        <p>Any of these limits can be adjusted on an account level by Support. Contact your account manager if you need additional capacity.</p>
+        <p>Chacune de ces limites peut être ajustée au niveau du compte par le Support. Contactez votre responsable de compte si vous avez besoin de capacités supplémentaires.</p>
       </dd>
-      <dt class="bcls-question">Can Brightcove Live push 1080p quality provided the input bandwidth is sufficient?</dt>
-      <dd class="bcls-answer">Yes, 1080p input is enabled for all accounts.</dd>
-      <dt class="bcls-question">Is DRM available?</dt>
-      <dd class="bcls-answer">Yes! Contact your account manager if you are interested in adding DRM support to your live account.</dd>
-    </dl>
-    <section class="BCL-subsection">
-      <h3>For further help</h3>
-      <p>If you need further help getting your live event to work, you can <a href="https://supportportal.brightcove.com/s/createrecord/Create_a_new_case">contact us</a>. To make sure you get the fastest response possible, below is a list of what Brightcove Support will need to solve the problem.</p>
+      <dt class="bcls-question">Est-ce que Brightcove Live peut pousser la qualité 1080p à condition que la bande passante d'entrée soit suffisante&nbsp;?</dt>
+      <dd class="bcls-answer">Oui, l'entrée 1080p est activée pour tous les comptes.</dd>
+      <dt class="bcls-question">Les DRM sont-ils disponibles&nbsp;?</dt>
+      <dd class="bcls-answer">Oui&nbsp;! Contactez votre responsable de compte si vous souhaitez ajouter la prise en charge des DRM à votre compte réel.</dd>
+    </dl> <section class="BCL-subsection">
+      <h3>Pour obtenir de l'aide</h3>
+      <p>Si vous avez besoin d'une aide supplémentaire pour que votre événement en direct fonctionne, vous pouvez nous<a href="https://supportportal.brightcove.com/s/createrecord/Create_a_new_case"> contacter</a>. Pour vous assurer d'obtenir une réponse la plus rapide possible, voici une liste des éléments dont le support Brightcove aura besoin pour résoudre le problème.</p>
       <ul>
-        <li>The specific symptoms the stream is having. For example, does it not play at all or does it stutter or freeze?</li>
-        <li>Whether this stream worked correctly in the past</li>
-        <li>The entry point URL you are using in your encoder</li>
-        <li>The encoding software and hardware are you using</li>
-        <li>The URL to the player to which you have published the live event</li>
-        <li>The video ID of your live asset</li>
-        <li>The results of a trace-route from your encoder to the publishing point host</li>
-      </ul>
-    </section>
-  </section>
-</article>
+        <li>Les symptômes spécifiques du flux. Par exemple, est-ce qu'il ne joue pas du tout ou est-ce qu'il bégaie ou gèle&nbsp;?</li>
+        <li>Si ce flux fonctionnait correctement par le passé</li>
+        <li>L'URL du point d'entrée que vous utilisez dans votre encodeur</li>
+        <li>Le logiciel et le matériel d'encodage que vous utilisez</li>
+        <li>L'URL du lecteur sur lequel vous avez publié l'événement en direct</li>
+        <li>L'identifiant vidéo de votre actif en direct</li>
+        <li>Les résultats d'un trace-route de votre encodeur vers l'hôte du point de publication</li>
+      </ul>    </section></section></article>

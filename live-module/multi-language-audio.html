@@ -1,115 +1,84 @@
-<h1>{{ page.title }}</h1>
-<article class="bcls-article">
-  <summary>{{ page.description }}</summary>
-  <section class="bcls-section">
-    <h2 id="Introduction">Introduction</h2>
-    <p>This feature allows ingesting multiple audio languages, descriptive or ambient audio experience tracks to be available for live playback. You can follow the steps here using Studio. You can also use the Live API. For details, see the <a href="https://apis.support.brightcove.com/live-api/guides/live-multi-language-audio.html">Multi Language Audio with the Live API</a> document.</p>
-    <aside class="bcls-aside bcls-aside--information">Note: Currently, the input formats supported include Real-Time Transport Protocol (RTP) and Secure Reliable Transport (SRT).</aside>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Prerequisites">Prerequisites</h2>
-    <p>There are a few prerequisites for multiple language audio tracks.</p>
-    <h3>Enable your account</h3>
-    <p>Contact customer support to enable this feature for your account</p>
-    <h3>Get encoder values</h3>
-    <p>Get the following values from your encoder: For details, refer to your encoder documentation.</p>
+<h1>{{page.title}}</h1> <article class="bcls-article"> <summary>{{page.description}}</summary> <section class="bcls-section">
+    <h2 id="Introduction">Présentation</h2>
+    <p>Cette fonctionnalité permet d'ingérer plusieurs langues audio, des pistes descriptives ou d'expérience audio ambiante pour être disponibles pour une lecteur en direct. Vous pouvez suivre les étapes ici à l'aide de Studio. Vous pouvez également utiliser l'API Live. Pour plus de détails, consultez le<a href="https://apis.support.brightcove.com/live-api/guides/live-multi-language-audio.html"> document Audio</a> multilingue avec l'API Live.</p> <aside class="bcls-aside bcls-aside--information">Remarque: Actuellement, les formats d'entrée pris en charge incluent Real-Time Transport Protocol (RTP) et Secure Reliable Transport (SRT).</aside> </section> <section class="bcls-section">
+    <h2 id="Prerequisites">Prérequis</h2>
+    <p>Il existe quelques conditions préalables pour les pistes audio multilingues.</p>
+    <h3>Activez votre compte</h3>
+    <p>Contactez le support client pour activer cette fonctionnalité pour votre compte</p>
+    <h3>Obtenir les valeurs de l'</h3>
+    <p>Obtenez les valeurs suivantes de votre encodeur: Pour plus de détails, reportez-vous à la documentation de votre encodeur.</p>
     <ul>
-      <li>Define the <strong>PID (Packet Identifier)</strong> for each audio track in your encoder</li>
-      <li>Define the <strong>Video PID</strong> asscociated with the video in your encoder</li>
+      <li>Définissez le<strong> PID (Packet Identifier)</strong> pour chaque piste audio de votre encodeur</li>
+      <li>Définissez le PID <strong></strong>vidéo associé à la vidéo dans votre encodeur</li>
     </ul>
-    <p>If you don't know the PID values from your encoder, see the <a href="#Getting_encoder_values">Getting encoder values</a> section.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Adding_Audio_Tracks">Adding Audio Tracks</h2>
-    <p>When creating a new Live event or channel:</p>
+    <p>Si vous ne connaissez pas les valeurs PID de votre encodeur, consultez la<a href="#Getting_encoder_values"> section</a> Obtenir les valeurs de l'encodeur.</p>  </section><section class="bcls-section">
+    <h2 id="Adding_Audio_Tracks">Ajout de pistes audio</h2>
+    <p>Lorsque vous créez un nouvel événement ou une nouvelle chaîne en direct:</p>
     <ol class="bcls-tasklist">
-      <li>In Studio, open the <strong>Live</strong> module.</li>
-      <li>Click either <strong>Create Channel</strong> or <strong>Create Event</strong>.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Manage events" src="/assets/images/s-live-img/live-module/multi-language-audio/manage-events.png" /> </figure>
+      <li>Dans Studio, ouvrez le<strong> module</strong> Live.</li>
+      <li>Cliquez sur<strong> Créer une chaîne</strong> ou sur<strong> Créer un événement</strong>. <figure class="bcls-figure"> <img class="bcls-image" alt="Gérer les événements" src="/assets/images/s-live-img/live-module/multi-language-audio/manage-events.png" /> </figure>
       </li>
-      <li>Expand the <strong>Audio Tracks</strong> section. You may see that the <strong>Add Audio Tracks</strong> button is grayed out. This is because multiple audio tracks are only supported for RTP and SRT input formats.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Expand audio tracks" src="/assets/images/s-live-img/live-module/multi-language-audio/expand-audio-tracks.png" /> </figure>
+      <li>Développez la<strong> section Pistes</strong> audio. Vous pouvez voir que le<strong> bouton</strong> Ajouter des pistes audio est grisé. En effet, plusieurs pistes audio ne sont prises en charge que pour les formats d'entrée RTP et SRT. <figure class="bcls-figure"> <img class="bcls-image" alt="Développer les pistes audio" src="/assets/images/s-live-img/live-module/multi-language-audio/expand-audio-tracks.png" /> </figure>
       </li>
-      <li>Expand the <strong>Advanced Options</strong> section and change the <strong>Input Format</strong> to either <strong>RTP</strong> or <strong>SRT</strong>. Now, the <strong>Add Audio Tracks</strong> button will be enabled.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Select input format" src="/assets/images/s-live-img/live-module/multi-language-audio/input-format.png" /> </figure>
+      <li>Développez la<strong> section Options</strong> avancées et définissez le format <strong></strong>d'entrée sur<strong> RTP</strong> ou<strong> SRT</strong>. Maintenant, le<strong> bouton</strong> Ajouter des pistes audio sera activé. <figure class="bcls-figure"> <img class="bcls-image" alt="Sélectionnez le format d'entrée" src="/assets/images/s-live-img/live-module/multi-language-audio/input-format.png" /> </figure>
       </li>
-      <li>For <strong>CIDR Whitelist</strong>, enter either <strong>0.0.0.0/0</strong> to connect to the RTP endpoint to allow all networks, or a specific value. This controls who can connect to the RTP or SRT endpoints.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="CIDR Whitelist" src="/assets/images/s-live-img/live-module/multi-language-audio/cidr-whitelist.png" /> </figure>
+      <li>Pour la liste blanche<strong> CIDR</strong>, entrez<strong> 0.0.0.0/0</strong> pour vous connecter au point de terminaison RTP afin d'autoriser tous les réseaux, ou une valeur spécifique. Cela contrôle qui peut se connecter aux points de terminaison RTP ou SRT. <figure class="bcls-figure"> <img class="bcls-image" alt="Liste blanche CIDR" src="/assets/images/s-live-img/live-module/multi-language-audio/cidr-whitelist.png" /> </figure>
       </li>
-      <li>For more information about advanced input formats, see the <a href="creating-and-managing-live-events-using-live-module.html#advanced">Configuring advanced options</a> document. </li>
-      <li>Click <strong>Add Audio Tracks</strong>.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Add Audio Tracks" src="/assets/images/s-live-img/live-module/multi-language-audio/add-audio-tracks.png" /> </figure>
+      <li>Pour plus d'informations sur les formats d'entrée avancés, consultez le<a href="creating-and-managing-live-events-using-live-module.html#advanced"> document</a> Configuration des options avancées. </li>
+      <li>Cliquez sur<strong> Ajouter des pistes audio</strong>. <figure class="bcls-figure"> <img class="bcls-image" alt="Ajouter des pistes audio" src="/assets/images/s-live-img/live-module/multi-language-audio/add-audio-tracks.png" /> </figure>
       </li>
-      <li>Enter field values for each audio track. Fields with an asterisk (*) are required.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Enter audio track data" src="/assets/images/s-live-img/live-module/multi-language-audio/enter-audio-tracks.png" /> </figure>
+      <li>Entrez les valeurs de champ pour chaque piste audio. Les champs marqués d'un astérisque (*) sont obligatoires. <figure class="bcls-figure"> <img class="bcls-image" alt="Saisir les données des pistes audio" src="/assets/images/s-live-img/live-module/multi-language-audio/enter-audio-tracks.png" /> </figure>
         <ul>
-          <li><strong>Default</strong> - Select the default audio track</li>
-          <li><strong>Language*</strong> - The language code for the audio track; Example: en, es, cy-GB, etc.</li>
-          <li><strong>PID*</strong> - The Packet Identifier (PID) code defined in your encoder to sync audio tracks in your incoming stream to the correct language and variant
-            <aside class="bcls-aside bcls-aside--information">Unique PID values are required for each audio track.</aside>
+          <li><strong>Par défaut</strong> - Sélectionnez la piste audio par défaut</li>
+          <li><strong>Language*</strong>: code de langue de la piste audio&nbsp;; Exemple: en, es, cy-GB, etc.</li>
+          <li><strong>PID*</strong> - Code PID (Packet Identifier) défini dans votre encodeur pour synchroniser les pistes audio de votre flux entrant dans la bonne langue et les valeurs PID<aside class="bcls-aside bcls-aside--information"> uniques de variante sont requises pour chaque piste audio.</aside>
           </li>
-          <li><strong>Video PID*</strong> - The Packet Identifier (PID) code associated with the video; this value is the same for all audio tracks </li>
-          <li><strong>Variant</strong> - The variant of the audio track; values are:
+          <li><strong>Video</strong> PID*: code PID (Packet Identifier) associé à la vidéo&nbsp;; cette valeur est la même pour toutes les pistes audio </li>
+          <li><strong>Variant</strong>: variante de la piste audio&nbsp;; les valeurs sont les suivantes:
             <ul>
-              <li><strong>main</strong></li>
-              <li><strong>alternate</strong></li>
-              <li><strong>caption</strong></li>
-              <li><strong>subtitle</strong></li>
-              <li><strong>supplementary</strong></li>
-              <li><strong>commentary</strong></li>
+              <li><strong>principal</strong></li>
+              <li><strong>alterner</strong></li>
+              <li><strong>sous-titre</strong></li>
+              <li><strong>Sous-titre</strong></li>
+              <li><strong>supplémentaire</strong></li>
+              <li><strong>commentaire</strong></li>
               <li><strong>dub</strong></li>
             </ul>
           </li>
-          <li><strong>Label</strong> - It is highly recommended to enter a label value (example: English, Spanish, etc.); if the label field is blank, the language code will be used as the label </li>
+          <li><strong>Label</strong> - Il est fortement recommandé de saisir une valeur d'étiquette (exemple: anglais, espagnol, etc.)&nbsp;; si le champ d'étiquette est vide, le code de langue sera utilisé comme étiquette </li>
         </ul>
       </li>
-      <li>Click the <strong>+</strong> and <strong>-</strong> buttons, to add or remove audio tracks.
-        <aside class="bcls-aside bcls-aside--information">Note: You can add up to six Audio Tracks. If there is a need to add more tracks, please contact support.</aside>
+      <li>Cliquez sur les <strong></strong><strong>boutons+et</strong> - pour ajouter ou supprimer des pistes audio. <aside class="bcls-aside bcls-aside--information">Remarque: Vous pouvez ajouter jusqu'à six pistes audio. Si vous avez besoin d'ajouter d'autres pistes, veuillez contacter le support.</aside>
       </li>
-      <li>Fill in the rest of the fields for a new channel or event. For details, see the <a href="creating-and-managing-live-events-using-live-module.html">Creating and Managing Live Events</a> document. </li>
-      <li>Click either <strong>Create Event</strong> or <strong>Create Channel</strong>.</li>
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Switching_Audio_Track">Switching Audio Track</h2>
+      <li>Remplissez le reste des champs pour une nouvelle chaîne ou un nouvel événement. Pour plus de détails, consultez le<a href="creating-and-managing-live-events-using-live-module.html"> document</a> Création et gestion d'événements en direct. </li>
+      <li>Cliquez sur<strong> Créer un événement</strong> ou<strong> Créer une chaîne</strong>.</li>
+    </ol>  </section><section class="bcls-section">
+    <h2 id="Switching_Audio_Track">Changer de piste audio</h2>
     <ol class="bcls-tasklist-restart">
       <li>
-        <p>If the multi-audio tracks were set up correctly, the player will have a headphone icon that can be used to switch between tracks.</p>
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Switch audio track" src="/assets/images/s-live-img/live-module/multi-language-audio/player-multi-language.png" /> </figure>
+        <p>Si les pistes multi-audio ont été correctement configurées, le lecteur aura une icône de casque qui peut être utilisée pour passer d'une piste à l'autre.</p> <figure class="bcls-figure"> <img class="bcls-image" alt="Changer de piste audio" src="/assets/images/s-live-img/live-module/multi-language-audio/player-multi-language.png" /> </figure>
       </li>
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Getting_encoder_values">Getting encoder values</h2>
-    <p>For the following fields, you will provide values from your encoder:</p>
+    </ol>  </section><section class="bcls-section">
+    <h2 id="Getting_encoder_values">Obtention des valeurs de</h2>
+    <p>Pour les champs suivants, vous allez fournir les valeurs de votre encodeur:</p>
     <ul>
-      <li><strong>PID</strong> - The packet idenifier from the MPEG-TS that refers to a specific audio track</li>
-      <li><strong>Video PID</strong> - The packet idenifier from the MPEG-TS input stream to select the video track</li>
+      <li><strong>PID</strong> - Identificateur de paquet du MPEG-TS qui fait référence à une piste audio spécifique</li>
+      <li><strong>PID vidéo</strong> - Identificateur de paquet du flux d'entrée MPEG-TS pour sélectionner la piste vidéo</li>
     </ul>
-    <p>If you don't know the PIDs from your encoder, you can use a tool such as ffprobe (included with ffmpeg) to inspect the PIDs in the stream. For details, see the <a href="https://apis.support.brightcove.com/live-api/guides/live-multi-language-audio.html#Configure_your_encoder">Multi Language Audio with the Live API</a> document.</p>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Viewing_live_event_info">Viewing live event info</h2>
-    <p>Once you have created your live event, you will see event information in the control room, including your audio tracks.</p>
+    <p>Si vous ne connaissez pas les PID de votre encodeur, vous pouvez utiliser un outil tel que ffprobe (fourni avec ffmpeg) pour inspecter les PID dans le flux. Pour plus de détails, consultez le<a href="https://apis.support.brightcove.com/live-api/guides/live-multi-language-audio.html#Configure_your_encoder"> document Audio</a> multilingue avec l'API Live.</p>  </section><section class="bcls-section">
+    <h2 id="Viewing_live_event_info">Affichage des informations sur les événements en</h2>
+    <p>Une fois que vous avez créé votre événement en direct, vous verrez les informations relatives à l'événement dans la salle de contrôle, y compris vos pistes audio.</p>
     <ol class="bcls-tasklist-restart">
-      <li>Return to  Studio.</li>
-      <li>In the left navigation, click <strong>Live</strong>. Then, select <strong>Control Room</strong>. Here, you will find detailed information about your live event.
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Control room" src="/assets/images/s-live-img/live-module/multi-language-audio/control-room.png" /> </figure>
+      <li>Revenir à la page Studio.</li>
+      <li>Dans le volet de navigation de gauche, cliquez sur<strong> Live</strong>. Ensuite, sélectionnez<strong> Control Room</strong>. Vous trouverez ici des informations détaillées sur votre événement en direct. <figure class="bcls-figure"> <img class="bcls-image" alt="Salle de contrôle" src="/assets/images/s-live-img/live-module/multi-language-audio/control-room.png" /> </figure>
       </li>
-      <li>Scroll down to find the <strong>Audio Tracks</strong> section. This information include Program ID (<strong>PID</strong>) and Video Program ID (<strong>Video PID</strong>).
-        <figure class="bcls-figure"> <img class="bcls-image" alt="Audio Tracks information" src="/assets/images/s-live-img/live-module/multi-language-audio/audio-tracks-control-room.png" /> </figure>
+      <li>Faites défiler vers le bas pour trouver la<strong> section Pistes</strong> audio. Ces informations incluent l'ID du programme (<strong>PID</strong>) et l'ID du programme<strong> vidéo (PID vidéo</strong>). <figure class="bcls-figure"> <img class="bcls-image" alt="Informations sur les pistes audio" src="/assets/images/s-live-img/live-module/multi-language-audio/audio-tracks-control-room.png" /> </figure>
       </li>
-    </ol>
-  </section>
-  <section class="bcls-section">
-    <h2 id="Using_the_Live_API">Using the Live API</h2>
-    <p>You can also use the <a href="https://apis.support.brightcove.com/live-api/references/reference.html">Live API</a> to manage multiple language audio tracks with your live streams.</p>
-  </section>
-  <section class="bcls-section">
+    </ol>  </section><section class="bcls-section">
+    <h2 id="Using_the_Live_API">Utilisation de l'API Live</h2>
+    <p>Vous pouvez également utiliser l'API<a href="https://apis.support.brightcove.com/live-api/references/reference.html"> Live</a> pour gérer des pistes audio en plusieurs langues avec vos flux en direct.</p>  </section><section class="bcls-section">
     <h2 id="Limitations">Limitations</h2>
     <ul>
-      <li>Multi language audio is currently not supported for Live jobs using SSAI or Redundancy Groups.</li>
-      <li>If you are using Live-to-VOD, the VOD assets will not have multiple audio tracks.</li>
-    </ul>
-  </section>
-</article>
+      <li>L'audio multilingue n'est actuellement pas pris en charge pour les travaux Live utilisant SSAI ou des groupes de redondance.</li>
+      <li>Si vous utilisez Live-to-VOD, les ressources VOD ne comporteront pas plusieurs pistes audio.</li>
+    </ul>   </section></article>
